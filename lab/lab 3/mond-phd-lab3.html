@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="uk" xml:lang="uk"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="© Valeriy Sydorenko, 2026">
+<meta name="description" content="Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»">
+
+<title>Лабораторна робота 3. Побудова протоколу пошуку, матриця доказів та карта сучасного стану досліджень</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="mond-phd-lab3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="mond-phd-lab3_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="mond-phd-lab3_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="mond-phd-lab3_files/libs/quarto-html/popper.min.js"></script>
+<script src="mond-phd-lab3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="mond-phd-lab3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="mond-phd-lab3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="mond-phd-lab3_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="mond-phd-lab3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="mond-phd-lab3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="mond-phd-lab3_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="mond-phd-lab3_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="mond-phd-lab3_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="mond-phd-lab3_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#що-ви-будете-вміти" id="toc-що-ви-будете-вміти" class="nav-link active" data-scroll-target="#що-ви-будете-вміти">Що ви будете вміти?</a></li>
+  <li><a href="#короткі-теоретичні-відомості" id="toc-короткі-теоретичні-відомості" class="nav-link" data-scroll-target="#короткі-теоретичні-відомості">Короткі теоретичні відомості</a>
+  <ul class="collapse">
+  <li><a href="#від-списку-публікацій-до-доказової-бази" id="toc-від-списку-публікацій-до-доказової-бази" class="nav-link" data-scroll-target="#від-списку-публікацій-до-доказової-бази">1. Від списку публікацій до доказової бази</a></li>
+  <li><a href="#протокол-пошуку" id="toc-протокол-пошуку" class="nav-link" data-scroll-target="#протокол-пошуку">2. Протокол пошуку</a></li>
+  <li><a href="#матриця-доказів" id="toc-матриця-доказів" class="nav-link" data-scroll-target="#матриця-доказів">3. Матриця доказів</a></li>
+  <li><a href="#карта-сучасного-стану-досліджень" id="toc-карта-сучасного-стану-досліджень" class="nav-link" data-scroll-target="#карта-сучасного-стану-досліджень">4. Карта сучасного стану досліджень</a></li>
+  </ul></li>
+  <li><a href="#хід-роботи" id="toc-хід-роботи" class="nav-link" data-scroll-target="#хід-роботи">Хід роботи</a>
+  <ul class="collapse">
+  <li><a href="#завдання-1.-зафіксуйте-вихідну-дослідницьку-конструкцію" id="toc-завдання-1.-зафіксуйте-вихідну-дослідницьку-конструкцію" class="nav-link" data-scroll-target="#завдання-1.-зафіксуйте-вихідну-дослідницьку-конструкцію">Завдання 1. Зафіксуйте вихідну дослідницьку конструкцію</a></li>
+  <li><a href="#завдання-2.-побудуйте-систему-пошукових-концептів" id="toc-завдання-2.-побудуйте-систему-пошукових-концептів" class="nav-link" data-scroll-target="#завдання-2.-побудуйте-систему-пошукових-концептів">Завдання 2. Побудуйте систему пошукових концептів</a></li>
+  <li><a href="#завдання-3.-сформуйте-протокол-пошуку" id="toc-завдання-3.-сформуйте-протокол-пошуку" class="nav-link" data-scroll-target="#завдання-3.-сформуйте-протокол-пошуку">Завдання 3. Сформуйте протокол пошуку</a></li>
+  <li><a href="#завдання-4.-проведіть-первинний-відбір-джерел" id="toc-завдання-4.-проведіть-первинний-відбір-джерел" class="nav-link" data-scroll-target="#завдання-4.-проведіть-первинний-відбір-джерел">Завдання 4. Проведіть первинний відбір джерел</a></li>
+  <li><a href="#завдання-5.-перевірте-першоджерела" id="toc-завдання-5.-перевірте-першоджерела" class="nav-link" data-scroll-target="#завдання-5.-перевірте-першоджерела">Завдання 5. Перевірте першоджерела</a></li>
+  <li><a href="#завдання-6.-побудуйте-матрицю-доказів" id="toc-завдання-6.-побудуйте-матрицю-доказів" class="nav-link" data-scroll-target="#завдання-6.-побудуйте-матрицю-доказів">Завдання 6. Побудуйте матрицю доказів</a></li>
+  <li><a href="#завдання-7.-побудуйте-карту-сучасного-стану-досліджень" id="toc-завдання-7.-побудуйте-карту-сучасного-стану-досліджень" class="nav-link" data-scroll-target="#завдання-7.-побудуйте-карту-сучасного-стану-досліджень">Завдання 7. Побудуйте карту сучасного стану досліджень</a></li>
+  <li><a href="#завдання-8.-проведіть-аудит-research-gap-v1" id="toc-завдання-8.-проведіть-аудит-research-gap-v1" class="nav-link" data-scroll-target="#завдання-8.-проведіть-аудит-research-gap-v1">Завдання 8. Проведіть аудит <code>Research Gap v1</code></a></li>
+  <li><a href="#завдання-9.-сформулюйте-синтез-сучасного-стану-досліджень" id="toc-завдання-9.-сформулюйте-синтез-сучасного-стану-досліджень" class="nav-link" data-scroll-target="#завдання-9.-сформулюйте-синтез-сучасного-стану-досліджень">Завдання 9. Сформулюйте синтез сучасного стану досліджень</a></li>
+  </ul></li>
+  <li><a href="#артефакти-лабораторної-роботи" id="toc-артефакти-лабораторної-роботи" class="nav-link" data-scroll-target="#артефакти-лабораторної-роботи">Артефакти лабораторної роботи</a></li>
+  <li><a href="#контрольні-питання" id="toc-контрольні-питання" class="nav-link" data-scroll-target="#контрольні-питання">Контрольні питання</a></li>
+  <li><a href="#вимоги-до-звіту" id="toc-вимоги-до-звіту" class="nav-link" data-scroll-target="#вимоги-до-звіту">Вимоги до звіту</a></li>
+  <li><a href="#критерії-оцінювання" id="toc-критерії-оцінювання" class="nav-link" data-scroll-target="#критерії-оцінювання">Критерії оцінювання</a></li>
+  <li><a href="#що-потрібно-показати-на-захисті" id="toc-що-потрібно-показати-на-захисті" class="nav-link" data-scroll-target="#що-потрібно-показати-на-захисті">Що потрібно показати на захисті?</a></li>
+  <li><a href="#підсумок" id="toc-підсумок" class="nav-link" data-scroll-target="#підсумок">Підсумок</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Лабораторна робота 3. Побудова протоколу пошуку, матриця доказів та карта сучасного стану досліджень</h1>
+</div>
+
+<div>
+  <div class="description">
+    <strong>Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»</strong>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>© <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/">Valeriy Sydorenko</a>, 2026 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24 вересня 2026 р.</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Мета</strong>: побудувати відтворюваний протокол пошуку наукових джерел, сформувати первинну матрицю доказів та карту сучасного стану досліджень для власної дисертаційної проблематики, а також перевірити, наскільки сформульовані в ЛР1–ЛР2 наукова проблема, дослідницькі питання та <code>Research Gap v1</code> підтримуються наявними науковими доказами.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Попередньо опрацювати матеріали <strong>Лекції 3 «Формування доказової бази та сучасного стану досліджень»</strong>.</p>
+<p>ЛР3 є прямим продовженням ЛР1–ЛР2. Вихідними матеріалами є:</p>
+<ul>
+<li><code>Research Problem v1</code>;</li>
+<li><code>Conceptual Framework v1</code>;</li>
+<li><code>Research Gap v1</code>;</li>
+<li>дослідницькі питання (<em>research questions</em>, RQ);</li>
+<li>попередня карта наукових тверджень (<em>Claim Map</em>);</li>
+<li>результати методологічного аудиту та архітектури дисертації.</li>
+</ul>
+<p>На цьому етапі <code>Research Gap v1</code> розглядається як <em>гіпотеза про стан наукового поля</em>, яку необхідно перевірити за допомогою систематично організованого пошуку та синтезу доказів.</p>
+<p>Результат ЛР3 не є остаточним літературним оглядом дисертації. Це перша відтворювана версія її доказової основи.</p>
+</div>
+</div>
+<section id="що-ви-будете-вміти" class="level2">
+<h2 class="anchored" data-anchor-id="що-ви-будете-вміти">Що ви будете вміти?</h2>
+<p>Після виконання лабораторної роботи ви зможете:</p>
+<ul>
+<li>перетворювати дослідницьке питання на систему пошукових концептів (<em>search concepts</em>);</li>
+<li>будувати відтворювану пошукову стратегію та фіксувати її у протоколі пошуку (<em>search protocol</em>);</li>
+<li>визначати критерії включення та виключення джерел (<em>inclusion/exclusion criteria</em>);</li>
+<li>застосовувати прямий пошук і ланцюговий пошук (<em>snowballing</em>);</li>
+<li>відокремлювати бібліографічне джерело від доказу (<em>evidence</em>);</li>
+<li>формувати матрицю доказів (<em>evidence matrix</em>);</li>
+<li>зіставляти твердження різних досліджень з урахуванням умов, даних, методів і способів валідації;</li>
+<li>виявляти узгоджені, суперечливі та недостатньо підтверджені результати;</li>
+<li>будувати карту сучасного стану досліджень (<em>state-of-the-art map</em>);</li>
+<li>перевіряти першоджерела, знайдені за підтримки ШІ (<em>AI-assisted search</em>);</li>
+<li>формулювати аргументований висновок щодо того, які елементи <code>Research Gap v1</code> підтверджуються, потребують уточнення або мають бути відхилені.</li>
+</ul>
+</section>
+<section id="короткі-теоретичні-відомості" class="level2">
+<h2 class="anchored" data-anchor-id="короткі-теоретичні-відомості">Короткі теоретичні відомості</h2>
+<section id="від-списку-публікацій-до-доказової-бази" class="level3">
+<h3 class="anchored" data-anchor-id="від-списку-публікацій-до-доказової-бази">1. Від списку публікацій до доказової бази</h3>
+<p>У ЛР3 ми не ставимо завдання «зібрати якомога більше статей». Нас цікавить інша логіка:</p>
+<p><span class="math display">\[
+RQ \rightarrow
+\text{пошукові концепти} \rightarrow
+\text{пошук} \rightarrow
+\text{відбір} \rightarrow
+\text{докази} \rightarrow
+\text{синтез}.
+\]</span></p>
+<p>Окрема публікація ще не є доказовою базою. Вона стає її елементом лише тоді, коли з першоджерела вилучено конкретний результат або аргумент і встановлено, <em>яке твердження він підтримує або обмежує та за яких умов</em>.</p>
+<p>Тому одиницею аналітичної роботи в цій лабораторній є не стаття сама по собі, а зв’язок:</p>
+<p><span class="math display">\[
+\text{Твердження} \leftrightarrow \text{Доказ} \leftrightarrow \text{Умови отримання}.
+\]</span></p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    RQ("Дослідницьке&lt;br/&gt;питання") --&gt; SP("Протокол&lt;br/&gt;пошуку")
+    SP --&gt; S("Відібрані&lt;br/&gt;джерела")
+    S --&gt; E("Докази")
+    E --&gt; M("Матриця&lt;br/&gt;доказів")
+    M --&gt; ST("Карта сучасного&lt;br/&gt;стану досліджень")
+    ST --&gt; G("Перевірка&lt;br/&gt;Research Gap v1")
+
+    classDef start fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#111827;
+    classDef process fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef evidence fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#111827;
+    classDef result fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#111827;
+
+    class RQ start;
+    class SP,S process;
+    class E,M evidence;
+    class ST,G result;
+</pre>
+</div>
+<p></p><figcaption> Логіка побудови доказової бази</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="протокол-пошуку" class="level3">
+<h3 class="anchored" data-anchor-id="протокол-пошуку">2. Протокол пошуку</h3>
+<p>Протокол пошуку (<em>search protocol</em>) фіксує правила, за якими формується корпус джерел. Мінімально він повинен містити:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Що потрібно зафіксувати</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Дослідницьке питання</td>
+<td>RQ, для якого збираються докази</td>
+</tr>
+<tr class="even">
+<td>Пошукові концепти</td>
+<td>основні поняття та їх синоніми</td>
+</tr>
+<tr class="odd">
+<td>Джерела пошуку</td>
+<td>бази даних, цифрові бібліотеки, пошукові системи</td>
+</tr>
+<tr class="even">
+<td>Пошуковий запит</td>
+<td>точний рядок або його версії</td>
+</tr>
+<tr class="odd">
+<td>Поля пошуку</td>
+<td>title, abstract, keywords тощо</td>
+</tr>
+<tr class="even">
+<td>Часові межі</td>
+<td>період публікацій</td>
+</tr>
+<tr class="odd">
+<td>Дата пошуку</td>
+<td>коли виконано пошук</td>
+</tr>
+<tr class="even">
+<td>Критерії включення</td>
+<td>які роботи залишаємо</td>
+</tr>
+<tr class="odd">
+<td>Критерії виключення</td>
+<td>які роботи відкидаємо</td>
+</tr>
+<tr class="even">
+<td>Ланцюговий пошук</td>
+<td>як перевіряємо посилання назад і вперед</td>
+</tr>
+<tr class="odd">
+<td>Результат</td>
+<td>кількість знайдених, переглянутих і включених робіт</td>
+</tr>
+</tbody>
+</table>
+<p>Важлива вимога – інший дослідник повинен мати змогу зрозуміти, <em>як саме сформовано корпус джерел</em>.</p>
+</section>
+<section id="матриця-доказів" class="level3">
+<h3 class="anchored" data-anchor-id="матриця-доказів">3. Матриця доказів</h3>
+<p>Матриця доказів (<em>evidence matrix</em>) перетворює набір публікацій на структурований аналітичний матеріал.</p>
+<p>Рекомендоване ядро матриці:</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Джерело</th>
+<th>Дослідницька задача</th>
+<th>Дані / контекст</th>
+<th>Метод</th>
+<th>Основний результат</th>
+<th>Доказ для нашого RQ</th>
+<th>Обмеження</th>
+<th>Пов’язане твердження</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>За потреби аспірант може додати поля: метрики, обсяг вибірки, спосіб поділу даних, тип валідації, код/репозиторій, DOI, якість джерела, тип дослідження тощо.</p>
+<p>Не слід заповнювати матрицю переказом анотації. Поле «Доказ для нашого RQ» має відповідати на питання:</p>
+<blockquote class="blockquote">
+<p>Що саме з цієї роботи ми можемо використати для підтримки, уточнення або спростування конкретного твердження у власному дослідженні?</p>
+</blockquote>
+</section>
+<section id="карта-сучасного-стану-досліджень" class="level3">
+<h3 class="anchored" data-anchor-id="карта-сучасного-стану-досліджень">4. Карта сучасного стану досліджень</h3>
+<p>Карта сучасного стану досліджень (<em>state-of-the-art map</em>) – це вже результат синтезу, а не каталог джерел.</p>
+<p>Вона має показати принаймні:</p>
+<ul>
+<li>які основні напрями сформувалися у предметному полі;</li>
+<li>які методи та типи даних переважають;</li>
+<li>які результати відтворюються у різних роботах;</li>
+<li>де результати суперечать один одному;</li>
+<li>за яких умов отримано позитивні та негативні результати;</li>
+<li>які аспекти досліджено недостатньо;</li>
+<li>які твердження про прогалину поки не мають достатньої доказової підтримки.</li>
+</ul>
+<p>Саме ця карта стане основою для ЛР4, де <code>Research Gap v1</code> буде перетворено на аргументовану дослідницьку прогалину та пов’язано з майбутнім науковим внеском.</p>
+</section>
+</section>
+<section id="хід-роботи" class="level2">
+<h2 class="anchored" data-anchor-id="хід-роботи">Хід роботи</h2>
+<section id="завдання-1.-зафіксуйте-вихідну-дослідницьку-конструкцію" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-1.-зафіксуйте-вихідну-дослідницьку-конструкцію">Завдання 1. Зафіксуйте вихідну дослідницьку конструкцію</h3>
+<p>Перенесіть із ЛР2:</p>
+<ol type="1">
+<li><code>Research Problem v1</code>;</li>
+<li><code>Research Gap v1</code>;</li>
+<li>2–4 основні дослідницькі питання;</li>
+<li>ключові попередні твердження з <code>Claim Map</code>.</li>
+</ol>
+<p>Для кожного RQ коротко запишіть, <em>які зовнішні наукові докази потрібні</em>, щоб оцінити його актуальність і стан дослідженості.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>RQ</th>
+<th>Яке знання потрібно знайти в літературі?</th>
+<th>Які твердження потрібно перевірити?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ1</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>RQ2</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>RQ3</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="завдання-2.-побудуйте-систему-пошукових-концептів" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-2.-побудуйте-систему-пошукових-концептів">Завдання 2. Побудуйте систему пошукових концептів</h3>
+<p>Для одного основного RQ виділіть 2–4 концептуальні блоки. Для кожного визначте:</p>
+<ul>
+<li>основний термін;</li>
+<li>англомовний відповідник;</li>
+<li>синоніми;</li>
+<li>близькі терміни;</li>
+<li>небажані значення, які можуть створювати пошуковий шум.</li>
+</ul>
+<p>Приклад структури:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Концепт</th>
+<th>Основний термін</th>
+<th>Синоніми / варіанти</th>
+<th>Небажані значення</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(C_1\)</span></td>
+<td>bot detection</td>
+<td>social bot detection, automated account detection</td>
+<td>chatbot</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_2\)</span></td>
+<td>robustness</td>
+<td>generalization, stability</td>
+<td>hardware robustness</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_3\)</span></td>
+<td>domain shift</td>
+<td>topic shift, temporal shift</td>
+<td>image domain adaptation</td>
+</tr>
+</tbody>
+</table>
+<p>Після цього сформуйте логічну конструкцію:</p>
+<p><span class="math display">\[
+Q=(C_{1,1}\lor C_{1,2}\lor\ldots)
+\land
+(C_{2,1}\lor C_{2,2}\lor\ldots)
+\land \ldots
+\]</span></p>
+<p>Зафіксуйте не лише фінальний запит, а й 2–3 його попередні версії та коротко поясніть, чому вони були змінені.</p>
+</section>
+<section id="завдання-3.-сформуйте-протокол-пошуку" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-3.-сформуйте-протокол-пошуку">Завдання 3. Сформуйте протокол пошуку</h3>
+<p>Створіть таблицю протоколу.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Поле</th>
+<th>Ваше рішення</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Джерела пошуку</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Пошуковий запит</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Поля пошуку</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Часові межі</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Типи публікацій</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Мова</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Дата виконання пошуку</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Критерії включення</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Критерії виключення</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Процедура ланцюгового пошуку</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Для дослідження рівня PhD не обмежуйте пошук одним сервісом або лише звичайним веб-пошуком. Обґрунтуйте вибір джерел відповідно до предметної області.</p>
+</section>
+<section id="завдання-4.-проведіть-первинний-відбір-джерел" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-4.-проведіть-первинний-відбір-джерел">Завдання 4. Проведіть первинний відбір джерел</h3>
+<p>Виконайте пошук за протоколом та зафіксуйте послідовність відбору:</p>
+<ol type="1">
+<li>результати пошуку;</li>
+<li>усунення очевидних дублікатів;</li>
+<li>перегляд назв та анотацій;</li>
+<li>повнотекстова перевірка кандидатів;</li>
+<li>остаточне включення до первинного корпусу;</li>
+<li>ланцюговий пошук для ключових робіт.</li>
+</ol>
+<p>Для лабораторної роботи достатньо сформувати <em>керований первинний корпус</em>, який дає змогу продемонструвати методологію. Не потрібно штучно збільшувати кількість джерел заради самого числа.</p>
+<p>Зафіксуйте кількісний маршрут:</p>
+<p><span class="math display">\[
+N_{found}\rightarrow N_{screened}\rightarrow N_{fulltext}\rightarrow N_{included}.
+\]</span></p>
+<p>Коротко поясніть основні причини виключення робіт.</p>
+</section>
+<section id="завдання-5.-перевірте-першоджерела" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-5.-перевірте-першоджерела">Завдання 5. Перевірте першоджерела</h3>
+<p>Для кожної включеної роботи перевірте щонайменше:</p>
+<ul>
+<li>назву;</li>
+<li>авторів;</li>
+<li>рік;</li>
+<li>видання;</li>
+<li>DOI або інший стійкий ідентифікатор, якщо він існує;</li>
+<li>відповідність анотації реальному змісту;</li>
+<li>наявність у тексті результату, який ви плануєте використати як доказ.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Використання ШІ
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Пошук за підтримки ШІ (<em>AI-assisted search</em>) можна використовувати для генерації синонімів, пошукових концептів, пошуку кандидатів у джерела та первинного структурування матеріалу.</p>
+<p>Проте відповідь LLM, згенерований бібліографічний запис або переказ статті не є першоджерелом.</p>
+<p>Ланцюг перевірки:</p>
+<p><span class="math display">\[
+\text{AI suggestion}
+\rightarrow
+\text{candidate source}
+\rightarrow
+\text{primary source}
+\rightarrow
+\text{verified evidence}.
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="завдання-6.-побудуйте-матрицю-доказів" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-6.-побудуйте-матрицю-доказів">Завдання 6. Побудуйте матрицю доказів</h3>
+<p>Для відібраних робіт створіть матрицю доказів. Мінімальна рекомендована структура:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Джерело</th>
+<th>Дані / контекст</th>
+<th>Метод</th>
+<th>Результат</th>
+<th>Доказ</th>
+<th>Обмеження</th>
+<th>Claim / RQ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S01</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>S02</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Важливо: не записуйте «автори показали високу ефективність». Вкажіть, <em>що саме отримано, за яких умов і чому цей результат релевантний вашому твердженню</em>.</p>
+<p>Якщо дві роботи повідомляють різні результати, не усереднюйте їх механічно. Зафіксуйте можливі причини відмінностей: дані, вибірка, протокол, метрика, часовий період, предметна область, спосіб валідації тощо.</p>
+</section>
+<section id="завдання-7.-побудуйте-карту-сучасного-стану-досліджень" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-7.-побудуйте-карту-сучасного-стану-досліджень">Завдання 7. Побудуйте карту сучасного стану досліджень</h3>
+<p>Згрупуйте докази не за авторами, а за змістовими або методологічними напрямами.</p>
+<p>Побудуйте власну схему. Наприклад:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart TB
+    P("Наукова проблема") --&gt; A("Напрям A")
+    P --&gt; B("Напрям B")
+    P --&gt; C("Напрям C")
+    A --&gt; A1("Що встановлено")
+    A --&gt; A2("Що обмежено")
+    B --&gt; B1("Узгоджені результати")
+    B --&gt; B2("Суперечливі результати")
+    C --&gt; C1("Недостатньо досліджено")
+    A2 --&gt; G("Кандидат у прогалину")
+    B2 --&gt; G
+    C1 --&gt; G
+
+    classDef problem fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#111827;
+    classDef process fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef evidence fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#111827;
+    classDef result fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#111827;
+
+    class P problem;
+    class A,B,C process;
+    class A1,B1 evidence;
+    class A2,B2,C1,G result;
+</pre>
+</div>
+<p></p><figcaption> Шаблон карти сучасного стану досліджень</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<p>Схема має відображати <em>ваш фактичний корпус доказів</em>, а не бути формальною копією шаблону.</p>
+</section>
+<section id="завдання-8.-проведіть-аудит-research-gap-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-8.-проведіть-аудит-research-gap-v1">Завдання 8. Проведіть аудит <code>Research Gap v1</code></h3>
+<p>Поверніться до формулювання з ЛР2 та розкладіть його на окремі твердження.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Твердження про прогалину</th>
+<th>Докази «за»</th>
+<th>Докази, що обмежують / суперечать</th>
+<th>Рішення</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>G1</td>
+<td>S01, S04, …</td>
+<td>S07, …</td>
+<td>підтверджується / уточнити / відхилити</td>
+</tr>
+<tr class="even">
+<td>G2</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Не намагайтеся будь-якою ціною «довести», що початкова прогалина існує. Методологічно сильним результатом є також ситуація, коли літературний аналіз показує, що <code>Research Gap v1</code> був сформульований занадто широко або вже закритий попередніми роботами.</p>
+<p>Сформулюйте <code>Research Gap v2</code> лише настільки конкретно, наскільки це дозволяє зібрана доказова база.</p>
+</section>
+<section id="завдання-9.-сформулюйте-синтез-сучасного-стану-досліджень" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-9.-сформулюйте-синтез-сучасного-стану-досліджень">Завдання 9. Сформулюйте синтез сучасного стану досліджень</h3>
+<p>Напишіть короткий аналітичний синтез, організований навколо проблеми та доказів, а не авторів.</p>
+<p>Рекомендована логіка:</p>
+<ol type="1">
+<li>що в предметному полі вже встановлено достатньо переконливо;</li>
+<li>які підходи домінують;</li>
+<li>за яких умов отримано основні результати;</li>
+<li>де результати суперечливі;</li>
+<li>які обмеження повторюються;</li>
+<li>які аспекти залишаються недостатньо дослідженими;</li>
+<li>як це змінює вашу початкову постановку проблеми.</li>
+</ol>
+<p>Кожне суттєве фактичне твердження має бути простежуваним до конкретних елементів матриці доказів.</p>
+</section>
+</section>
+<section id="артефакти-лабораторної-роботи" class="level2">
+<h2 class="anchored" data-anchor-id="артефакти-лабораторної-роботи">Артефакти лабораторної роботи</h2>
+<p>За результатами ЛР3 аспірант повинен мати три основні артефакти:</p>
+<ol type="1">
+<li><em>Протокол пошуку (Search Protocol v1)</em>.</li>
+<li><em>Матрицю доказів (Evidence Matrix v1)</em>.</li>
+<li><em>Карту сучасного стану досліджень (State-of-the-Art Map v1)</em>.</li>
+</ol>
+<p>Додатковий результат – <code>Research Gap v2</code>, якщо зібраних доказів уже достатньо для його обґрунтованого уточнення.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    SP("Search Protocol v1") --&gt; EM("Evidence Matrix v1")
+    EM --&gt; SM("State-of-the-Art&lt;br/&gt;Map v1")
+    SM --&gt; GA("Аудит&lt;br/&gt;Research Gap v1")
+    GA --&gt; G2("Research Gap v2")
+    G2 --&gt; L4("ЛР4:&lt;br/&gt;науковий внесок&lt;br/&gt;і новизна")
+
+    classDef process fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef evidence fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#111827;
+    classDef result fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#111827;
+
+    class SP process;
+    class EM,SM evidence;
+    class GA,G2,L4 result;
+</pre>
+</div>
+<p></p><figcaption> Результати ЛР3 та перехід до ЛР4</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="контрольні-питання" class="level2">
+<h2 class="anchored" data-anchor-id="контрольні-питання">Контрольні питання</h2>
+<ol type="1">
+<li>Чим відрізняється список літератури від доказової бази?</li>
+<li>Для чого потрібен протокол пошуку?</li>
+<li>Як дослідницьке питання перетворюється на пошукові концепти?</li>
+<li>Чому пошуковий запит потрібно зберігати у точному вигляді?</li>
+<li>Яку роль виконують критерії включення та виключення?</li>
+<li>Що таке ланцюговий пошук (<em>snowballing</em>)?</li>
+<li>Чому одиницею синтезу доцільно вважати твердження, а не публікацію?</li>
+<li>Які поля повинна містити матриця доказів?</li>
+<li>Як працювати із суперечливими результатами різних досліджень?</li>
+<li>Чому відповідь LLM не можна використовувати як першоджерело?</li>
+<li>Які перевірки потрібні для джерела, знайденого за підтримки ШІ?</li>
+<li>Чим карта сучасного стану досліджень відрізняється від тематичного списку публікацій?</li>
+<li>За яких умов <code>Research Gap v1</code> потрібно відхилити або суттєво переформулювати?</li>
+<li>Як матриця доказів забезпечує простежуваність майбутніх тверджень дисертації?</li>
+</ol>
+</section>
+<section id="вимоги-до-звіту" class="level2">
+<h2 class="anchored" data-anchor-id="вимоги-до-звіту">Вимоги до звіту</h2>
+<p>Звіт подається у вигляді відтворюваного документа та повинен містити:</p>
+<ol type="1">
+<li>вихідні <code>Research Problem v1</code>, <code>Research Gap v1</code> та RQ;</li>
+<li>систему пошукових концептів;</li>
+<li>повний протокол пошуку;</li>
+<li>кількісний маршрут відбору джерел;</li>
+<li>критерії включення та виключення;</li>
+<li>матрицю доказів;</li>
+<li>карту сучасного стану досліджень;</li>
+<li>аудит <code>Research Gap v1</code>;</li>
+<li><code>Research Gap v2</code> – якщо його уточнення вже достатньо обґрунтоване;</li>
+<li>короткий аналітичний синтез сучасного стану досліджень;</li>
+<li>список використаних джерел.</li>
+</ol>
+<p>У звіті повинна зберігатися простежуваність:</p>
+<p><span class="math display">\[
+RQ \rightarrow
+\text{Search Protocol} \rightarrow
+\text{Source} \rightarrow
+\text{Evidence} \rightarrow
+\text{Claim} \rightarrow
+\text{Research Gap}.
+\]</span></p>
+</section>
+<section id="критерії-оцінювання" class="level2">
+<h2 class="anchored" data-anchor-id="критерії-оцінювання">Критерії оцінювання</h2>
+<p>Максимальна оцінка за ЛР3 – <strong>7 балів</strong>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th style="text-align: right;">Максимум</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Коректність і відтворюваність протоколу пошуку</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="even">
+<td>Обґрунтованість критеріїв відбору та процедура пошуку</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="odd">
+<td>Якість і простежуваність матриці доказів</td>
+<td style="text-align: right;">2.0</td>
+</tr>
+<tr class="even">
+<td>Аналітичність карти сучасного стану досліджень</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="odd">
+<td>Доказовий аудит <code>Research Gap v1</code> та обґрунтованість висновків</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="even">
+<td>Якість оформлення, відтворюваність і усний захист</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td><strong>Разом</strong></td>
+<td style="text-align: right;"><strong>7.0</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="що-потрібно-показати-на-захисті" class="level2">
+<h2 class="anchored" data-anchor-id="що-потрібно-показати-на-захисті">Що потрібно показати на захисті?</h2>
+<p>Аспірант повинен уміти:</p>
+<ul>
+<li>відтворити логіку побудови пошукового запиту від RQ;</li>
+<li>пояснити вибір джерел пошуку та критеріїв відбору;</li>
+<li>показати приклад включеної та виключеної роботи;</li>
+<li>для 2–3 ключових джерел перейти від бібліографічного запису до конкретного доказу;</li>
+<li>пояснити хоча б один випадок узгоджених або суперечливих результатів;</li>
+<li>показати, як матриця доказів перетворюється на карту сучасного стану досліджень;</li>
+<li>аргументувати, що сталося з <code>Research Gap v1</code>: підтвердження, звуження, переформулювання або відхилення;</li>
+<li>пояснити, які питання залишаються відкритими перед переходом до ЛР4.</li>
+</ul>
+</section>
+<section id="підсумок" class="level2">
+<h2 class="anchored" data-anchor-id="підсумок">Підсумок</h2>
+<p>Після ЛР3 початкова методологічна архітектура дисертації вперше проходить <em>зовнішню доказову перевірку</em>.</p>
+<p>Результат лабораторної роботи – не «огляд літератури за темою», а простежуваний ланцюг:</p>
+<p><span class="math display">\[
+\text{Research Problem}
+\rightarrow
+RQ
+\rightarrow
+\text{Search Protocol}
+\rightarrow
+\text{Evidence Matrix}
+\rightarrow
+\text{State-of-the-Art Map}
+\rightarrow
+\text{Research Gap v2}.
+\]</span></p>
+<p>У ЛР4 цей результат буде використано для обґрунтування дослідницької прогалини, карти наукових внесків та положень про наукову новизну.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

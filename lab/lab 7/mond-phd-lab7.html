@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="uk" xml:lang="uk"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="© Valeriy Sydorenko, 2026">
+<meta name="description" content="Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»">
+
+<title>Лабораторна робота 7. Формування плану відтворюваності, простежуваності та доброчесності і декларації використання ШІ</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="mond-phd-lab7_files/libs/clipboard/clipboard.min.js"></script>
+<script src="mond-phd-lab7_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="mond-phd-lab7_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="mond-phd-lab7_files/libs/quarto-html/popper.min.js"></script>
+<script src="mond-phd-lab7_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="mond-phd-lab7_files/libs/quarto-html/anchor.min.js"></script>
+<link href="mond-phd-lab7_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="mond-phd-lab7_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="mond-phd-lab7_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="mond-phd-lab7_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="mond-phd-lab7_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="mond-phd-lab7_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="mond-phd-lab7_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="mond-phd-lab7_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#що-ви-будете-вміти" id="toc-що-ви-будете-вміти" class="nav-link active" data-scroll-target="#що-ви-будете-вміти">Що ви будете вміти?</a></li>
+  <li><a href="#короткі-теоретичні-відомості" id="toc-короткі-теоретичні-відомості" class="nav-link" data-scroll-target="#короткі-теоретичні-відомості">Короткі теоретичні відомості</a>
+  <ul class="collapse">
+  <li><a href="#відтворюваність-і-простежуваність" id="toc-відтворюваність-і-простежуваність" class="nav-link" data-scroll-target="#відтворюваність-і-простежуваність">1. Відтворюваність і простежуваність</a></li>
+  <li><a href="#дослідницька-доброчесність" id="toc-дослідницька-доброчесність" class="nav-link" data-scroll-target="#дослідницька-доброчесність">2. Дослідницька доброчесність</a></li>
+  <li><a href="#декларація-використання-ші" id="toc-декларація-використання-ші" class="nav-link" data-scroll-target="#декларація-використання-ші">3. Декларація використання ШІ</a></li>
+  </ul></li>
+  <li><a href="#хід-роботи" id="toc-хід-роботи" class="nav-link" data-scroll-target="#хід-роботи">Хід роботи</a>
+  <ul class="collapse">
+  <li><a href="#завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр6" id="toc-завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр6" class="nav-link" data-scroll-target="#завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр6">Завдання 1. Зафіксуйте вхідні артефакти ЛР1–ЛР6</a></li>
+  <li><a href="#завдання-2.-спроєктуйте-структуру-дослідницького-репозиторію" id="toc-завдання-2.-спроєктуйте-структуру-дослідницького-репозиторію" class="nav-link" data-scroll-target="#завдання-2.-спроєктуйте-структуру-дослідницького-репозиторію">Завдання 2. Спроєктуйте структуру дослідницького репозиторію</a></li>
+  <li><a href="#завдання-3.-побудуйте-data-artifact-provenance-map-v1" id="toc-завдання-3.-побудуйте-data-artifact-provenance-map-v1" class="nav-link" data-scroll-target="#завдання-3.-побудуйте-data-artifact-provenance-map-v1">Завдання 3. Побудуйте <code>Data &amp; Artifact Provenance Map v1</code></a></li>
+  <li><a href="#завдання-4.-сформуйте-reproducibility-protocol-v1" id="toc-завдання-4.-сформуйте-reproducibility-protocol-v1" class="nav-link" data-scroll-target="#завдання-4.-сформуйте-reproducibility-protocol-v1">Завдання 4. Сформуйте <code>Reproducibility Protocol v1</code></a></li>
+  <li><a href="#завдання-5.-визначте-політику-версіонування-та-ідентифікації" id="toc-завдання-5.-визначте-політику-версіонування-та-ідентифікації" class="nav-link" data-scroll-target="#завдання-5.-визначте-політику-версіонування-та-ідентифікації">Завдання 5. Визначте політику версіонування та ідентифікації</a></li>
+  <li><a href="#завдання-6.-побудуйте-claim-traceability-matrix-v1" id="toc-завдання-6.-побудуйте-claim-traceability-matrix-v1" class="nav-link" data-scroll-target="#завдання-6.-побудуйте-claim-traceability-matrix-v1">Завдання 6. Побудуйте <code>Claim Traceability Matrix v1</code></a></li>
+  <li><a href="#завдання-7.-побудуйте-research-log-template-v1" id="toc-завдання-7.-побудуйте-research-log-template-v1" class="nav-link" data-scroll-target="#завдання-7.-побудуйте-research-log-template-v1">Завдання 7. Побудуйте <code>Research Log Template v1</code></a></li>
+  <li><a href="#завдання-8.-проведіть-аудит-ризиків-дослідницької-доброчесності" id="toc-завдання-8.-проведіть-аудит-ризиків-дослідницької-доброчесності" class="nav-link" data-scroll-target="#завдання-8.-проведіть-аудит-ризиків-дослідницької-доброчесності">Завдання 8. Проведіть аудит ризиків дослідницької доброчесності</a></li>
+  <li><a href="#завдання-9.-розмежуйте-confirmatory-та-exploratory-analysis" id="toc-завдання-9.-розмежуйте-confirmatory-та-exploratory-analysis" class="nav-link" data-scroll-target="#завдання-9.-розмежуйте-confirmatory-та-exploratory-analysis">Завдання 9. Розмежуйте confirmatory та exploratory analysis</a></li>
+  <li><a href="#завдання-10.-сформуйте-ai-usage-statement-v1" id="toc-завдання-10.-сформуйте-ai-usage-statement-v1" class="nav-link" data-scroll-target="#завдання-10.-сформуйте-ai-usage-statement-v1">Завдання 10. Сформуйте <code>AI Usage Statement v1</code></a></li>
+  <li><a href="#завдання-11.-визначте-політику-відкритості-та-доступу" id="toc-завдання-11.-визначте-політику-відкритості-та-доступу" class="nav-link" data-scroll-target="#завдання-11.-визначте-політику-відкритості-та-доступу">Завдання 11. Визначте політику відкритості та доступу</a></li>
+  <li><a href="#завдання-12.-проведіть-аудит-reproducibility-debt" id="toc-завдання-12.-проведіть-аудит-reproducibility-debt" class="nav-link" data-scroll-target="#завдання-12.-проведіть-аудит-reproducibility-debt">Завдання 12. Проведіть аудит <code>Reproducibility Debt</code></a></li>
+  <li><a href="#завдання-13.-побудуйте-reproducibility-traceability-map-v1" id="toc-завдання-13.-побудуйте-reproducibility-traceability-map-v1" class="nav-link" data-scroll-target="#завдання-13.-побудуйте-reproducibility-traceability-map-v1">Завдання 13. Побудуйте <code>Reproducibility &amp; Traceability Map v1</code></a></li>
+  <li><a href="#завдання-14.-сформуйте-підсумковий-reproducibility-traceability-integrity-plan-v1" id="toc-завдання-14.-сформуйте-підсумковий-reproducibility-traceability-integrity-plan-v1" class="nav-link" data-scroll-target="#завдання-14.-сформуйте-підсумковий-reproducibility-traceability-integrity-plan-v1">Завдання 14. Сформуйте підсумковий <code>Reproducibility, Traceability &amp; Integrity Plan v1</code></a></li>
+  </ul></li>
+  <li><a href="#що-потрібно-подати-на-захист" id="toc-що-потрібно-подати-на-захист" class="nav-link" data-scroll-target="#що-потрібно-подати-на-захист">Що потрібно подати на захист</a></li>
+  <li><a href="#критерії-оцінювання" id="toc-критерії-оцінювання" class="nav-link" data-scroll-target="#критерії-оцінювання">Критерії оцінювання</a></li>
+  <li><a href="#контрольні-запитання" id="toc-контрольні-запитання" class="nav-link" data-scroll-target="#контрольні-запитання">Контрольні запитання</a></li>
+  <li><a href="#підсумок" id="toc-підсумок" class="nav-link" data-scroll-target="#підсумок">Підсумок</a></li>
+  <li><a href="#рекомендовані-джерела" id="toc-рекомендовані-джерела" class="nav-link" data-scroll-target="#рекомендовані-джерела">Рекомендовані джерела</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Лабораторна робота 7. Формування плану відтворюваності, простежуваності та доброчесності і декларації використання ШІ</h1>
+</div>
+
+<div>
+  <div class="description">
+    <strong>Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»</strong>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>© <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/">Valeriy Sydorenko</a>, 2026 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24 вересня 2026 р.</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Мета</strong>: сформувати для власного дисертаційного дослідження практичний план відтворюваності, простежуваності та дослідницької доброчесності; визначити правила керування даними, кодом, середовищем, версіями, експериментами та науковими результатами; побудувати матрицю простежуваності ключових наукових тверджень і підготувати декларацію використання штучного інтелекту.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ЛР7 продовжує наскрізну роботу над <em>власною дисертацією</em>. Вхідними артефактами є актуальні результати ЛР1–ЛР6, передусім <code>Methodological Architecture</code>, <code>Research Design</code>, <code>Claim--Evidence--Validation Matrix</code> та <code>Evidence Architecture</code>.</p>
+<p>Тут не потрібно створювати «ідеальний репозиторій готової дисертації». Потрібно спроєктувати правила, за якими подальше дослідження виконуватиметься так, щоб походження ключових результатів можна було відновити, а суттєві процедури – повторити й перевірити.</p>
+<p>Якщо певний елемент не застосовується до вашого типу дослідження, позначте <code>N/A</code> і коротко обґрунтуйте.</p>
+</div>
+</div>
+<section id="що-ви-будете-вміти" class="level2">
+<h2 class="anchored" data-anchor-id="що-ви-будете-вміти">Що ви будете вміти?</h2>
+<p>Після виконання лабораторної роботи ви зможете:</p>
+<ul>
+<li>розрізняти <em>відтворюваність</em> (reproducibility), <em>відтворення незалежною реалізацією</em> (replication) і <em>простежуваність</em> (traceability);</li>
+<li>проєктувати структуру дослідницького репозиторію;</li>
+<li>документувати походження даних (data provenance), коду, конфігурацій і результатів;</li>
+<li>формувати <code>Reproducibility Protocol</code>;</li>
+<li>будувати <code>Claim Traceability Matrix</code>;</li>
+<li>організовувати <code>Research Log</code>;</li>
+<li>виявляти ризики fabrication, falsification, selective reporting, p-hacking і HARKing;</li>
+<li>формувати <code>AI Usage Statement</code>;</li>
+<li>оцінювати власний <em>борг відтворюваності</em> (reproducibility debt).</li>
+</ul>
+</section>
+<section id="короткі-теоретичні-відомості" class="level2">
+<h2 class="anchored" data-anchor-id="короткі-теоретичні-відомості">Короткі теоретичні відомості</h2>
+<section id="відтворюваність-і-простежуваність" class="level3">
+<h3 class="anchored" data-anchor-id="відтворюваність-і-простежуваність">1. Відтворюваність і простежуваність</h3>
+<p>Для обчислювального дослідження:</p>
+<p><span class="math display">\[
+R=f(D,C,P,E),
+\]</span></p>
+<p>де <span class="math inline">\(D\)</span> – дані, <span class="math inline">\(C\)</span> – код, <span class="math inline">\(P\)</span> – параметри та конфігурація, <span class="math inline">\(E\)</span> – обчислювальне середовище.</p>
+<p>Отже, одного файлу з кодом недостатньо. Потрібно встановити версію даних, стан коду, параметри, середовище та зв’язок результату з конкретним науковим твердженням.</p>
+<p><em>Простежуваність</em> (traceability) означає можливість пройти від Claim назад до його доказової основи:</p>
+<p><span class="math display">\[
+\text{Claim}\leftarrow\text{Evidence}\leftarrow\text{Result}\leftarrow
+\text{Experiment}\leftarrow\text{Data + Code + Configuration}.
+\]</span></p>
+<p>Саме тому результат ЛР6 – <code>Claim--Evidence--Validation Matrix</code> – є природним входом до ЛР7.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    D("📦 Data") --&gt; E("🧪 Experiment")
+    C("💻 Code + Config&lt;br/&gt;+ Environment") --&gt; E
+    E --&gt; R("📊 Result")
+    R --&gt; V("🛡️ Validation")
+    V --&gt; CL("💡 Claim")
+    CL --&gt; CO("🎓 Contribution")
+    classDef input fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#111827;
+    classDef process fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef evidence fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#111827;
+    classDef result fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#111827;
+    class D,C input;
+    class E process;
+    class R,V evidence;
+    class CL,CO result;
+</pre>
+</div>
+<p></p><figcaption> Перехід від доказової архітектури до простежуваного дослідження</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="дослідницька-доброчесність" class="level3">
+<h3 class="anchored" data-anchor-id="дослідницька-доброчесність">2. Дослідницька доброчесність</h3>
+<p>У цій роботі дослідницька доброчесність розглядається як система запобіжників, а не формальна декларація. Особливу увагу приділяємо фабрикації (fabrication), фальсифікації (falsification), вибірковому поданню результатів (selective reporting), маніпуляціям статистичним аналізом (p-hacking), формулюванню гіпотези після отримання результатів (HARKing), незадокументованому редагуванню даних, leakage, приховуванню негативних результатів та неперевіреному AI-generated content.</p>
+<p>Мета – визначити конкретні процедури, що зменшують ці ризики саме у вашому дослідженні.</p>
+</section>
+<section id="декларація-використання-ші" class="level3">
+<h3 class="anchored" data-anchor-id="декларація-використання-ші">3. Декларація використання ШІ</h3>
+<p>Якщо AI/LLM використовується в дослідженні, потрібно розрізняти:</p>
+<ol type="1">
+<li>AI допомагає редагувати матеріал і не впливає на Evidence;</li>
+<li>AI допомагає створювати код, виконувати пошук або аналіз, а результат перевіряється дослідником;</li>
+<li>AI є частиною дослідницького pipeline і безпосередньо впливає на Result, Evidence або Claim.</li>
+</ol>
+<p>Чим ближче AI-вихід до доказу, тим детальнішими мають бути документування та незалежна перевірка.</p>
+<p>Для критичних кроків фіксуємо:</p>
+<p><code>tool/model → date/version → input/context → parameters → output → verification → human decision</code>.</p>
+</section>
+</section>
+<section id="хід-роботи" class="level2">
+<h2 class="anchored" data-anchor-id="хід-роботи">Хід роботи</h2>
+<section id="завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр6" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр6">Завдання 1. Зафіксуйте вхідні артефакти ЛР1–ЛР6</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Артефакт</th>
+<th>Актуальна версія</th>
+<th>Що з нього потрібно для ЛР7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Research Problem</td>
+<td>…</td>
+<td>межі дослідження</td>
+</tr>
+<tr class="even">
+<td>RQ / Hypotheses</td>
+<td>…</td>
+<td>твердження, які перевіряються</td>
+</tr>
+<tr class="odd">
+<td>Research Gap</td>
+<td>…</td>
+<td>підстава для внесків</td>
+</tr>
+<tr class="even">
+<td>Contribution / Novelty Claims</td>
+<td>…</td>
+<td>ключові майбутні твердження</td>
+</tr>
+<tr class="odd">
+<td>Research Design</td>
+<td>…</td>
+<td>дизайн, дані, методи, експерименти</td>
+</tr>
+<tr class="even">
+<td>Claim–Evidence–Validation Matrix</td>
+<td>…</td>
+<td>основа traceability</td>
+</tr>
+<tr class="odd">
+<td>Evidence Architecture</td>
+<td>…</td>
+<td>система доказів</td>
+</tr>
+<tr class="even">
+<td>Threats to Validity</td>
+<td>…</td>
+<td>ризики, які потрібно контролювати</td>
+</tr>
+</tbody>
+</table>
+<p>Після таблиці визначте 2–4 елементи власного дослідження, критичні для відтворюваності та незалежної перевірки.</p>
+</section>
+<section id="завдання-2.-спроєктуйте-структуру-дослідницького-репозиторію" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-2.-спроєктуйте-структуру-дослідницького-репозиторію">Завдання 2. Спроєктуйте структуру дослідницького репозиторію</h3>
+<p>Як відправну точку можна використати:</p>
+<pre class="text"><code>dissertation-research/
+├── README.md
+├── environment/
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── README.md
+├── src/
+├── notebooks/
+├── configs/
+├── experiments/
+├── results/
+├── figures/
+├── docs/
+└── research-log/</code></pre>
+<p>Не копіюйте структуру механічно.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Призначення</th>
+<th>Що версіонується?</th>
+<th>Що не можна публікувати?</th>
+<th>Правило іменування / ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data/raw/</code></td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td><code>src/</code></td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td><code>experiments/</code></td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="завдання-3.-побудуйте-data-artifact-provenance-map-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-3.-побудуйте-data-artifact-provenance-map-v1">Завдання 3. Побудуйте <code>Data &amp; Artifact Provenance Map v1</code></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Artifact ID</th>
+<th>Тип</th>
+<th>Джерело</th>
+<th>Версія / дата</th>
+<th>Перетворення</th>
+<th>Скрипт / процедура</th>
+<th>Вихід</th>
+<th>Обмеження</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D01</td>
+<td>raw data</td>
+<td>…</td>
+<td>…</td>
+<td>–</td>
+<td>…</td>
+<td>D02</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>D02</td>
+<td>processed data</td>
+<td>D01</td>
+<td>…</td>
+<td>…</td>
+<td><code>...</code></td>
+<td>EXP01</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>M01</td>
+<td>model/checkpoint</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>R01</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Після таблиці побудуйте власну Mermaid-схему походження артефактів.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    S("🌐 Source") --&gt; D0("📦 Raw Data D01")
+    D0 --&gt; P("🧹 Processing")
+    P --&gt; D1("📦 Data D02")
+    D1 --&gt; E("🧪 EXP01")
+    C("💻 Code + Config") --&gt; E
+    E --&gt; R("📊 Result R01")
+    classDef source fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#111827;
+    classDef process fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef evidence fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#111827;
+    class S,D0 source;
+    class P,E,C process;
+    class D1,R evidence;
+</pre>
+</div>
+<p></p><figcaption> Шаблон карти походження дослідницьких артефактів</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="завдання-4.-сформуйте-reproducibility-protocol-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-4.-сформуйте-reproducibility-protocol-v1">Завдання 4. Сформуйте <code>Reproducibility Protocol v1</code></h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Шар</th>
+<th>Що потрібно зафіксувати</th>
+<th>Ваше рішення</th>
+<th>Механізм контролю</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Data</td>
+<td>source, version, snapshot, checksum</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Code</td>
+<td>repository, commit/tag</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Environment</td>
+<td>Python/R, packages, OS, CUDA тощо</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Configuration</td>
+<td>parameters, hyperparameters</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Randomness</td>
+<td>seeds, repetitions</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Experiment</td>
+<td>ID, protocol, input/output</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Results</td>
+<td>raw/derived results</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Figures</td>
+<td>script + source result</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Claims</td>
+<td>Claim ID + Evidence ID</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Backup</td>
+<td>резервування критичних артефактів</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Для кожного шару поясніть, як буде відновлено відповідний стан дослідження.</p>
+</section>
+<section id="завдання-5.-визначте-політику-версіонування-та-ідентифікації" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-5.-визначте-політику-версіонування-та-ідентифікації">Завдання 5. Визначте політику версіонування та ідентифікації</h3>
+<p>Сформуйте правила для версій даних, Git commits/tags, конфігурацій, ID експериментів, результатів і Claim.</p>
+<p>Приклад:</p>
+<pre class="text"><code>Dataset: D2.1
+Experiment: EXP-012
+Result: R-012-01
+Claim: CL-03
+Code: commit a13f2c7
+Config: exp_012.yaml</code></pre>
+<p>Створіть власний повний запис:</p>
+<pre class="text"><code>Claim:
+Evidence:
+Result:
+Experiment:
+Dataset:
+Code:
+Config:
+Environment:</code></pre>
+<p>Поясніть, як за ним через декілька місяців відновити походження результату.</p>
+</section>
+<section id="завдання-6.-побудуйте-claim-traceability-matrix-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-6.-побудуйте-claim-traceability-matrix-v1">Завдання 6. Побудуйте <code>Claim Traceability Matrix v1</code></h3>
+<p>Візьміть ключові Claim із ЛР4–ЛР6.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim ID</th>
+<th>Claim</th>
+<th>Evidence ID</th>
+<th>Result ID</th>
+<th>Experiment / Analysis</th>
+<th>Data</th>
+<th>Code / Config</th>
+<th>Validation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CL1</td>
+<td>…</td>
+<td>E1</td>
+<td>R1</td>
+<td>EXP01</td>
+<td>D2.1</td>
+<td>…</td>
+<td>…</td>
+<td>PLANNED</td>
+</tr>
+<tr class="even">
+<td>CL2</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Статуси:</p>
+<ul>
+<li><code>PLANNED</code> – ланцюг спроєктовано;</li>
+<li><code>PARTIAL</code> – частина ланцюга вже існує;</li>
+<li><code>TRACEABLE</code> – усі критичні ланки можна ідентифікувати;</li>
+<li><code>GAP</code> – існує розрив простежуваності.</li>
+</ul>
+<p>Для кожного <code>GAP</code> поясніть, що потрібно додати.</p>
+</section>
+<section id="завдання-7.-побудуйте-research-log-template-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-7.-побудуйте-research-log-template-v1">Завдання 7. Побудуйте <code>Research Log Template v1</code></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Event / Decision</th>
+<th>Rationale</th>
+<th>Affected artifact</th>
+<th>Previous state</th>
+<th>New state</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Передбачте обов’язкову фіксацію зміни гіпотези, primary metric, критеріїв включення/виключення, preprocessing, test/validation protocol, baseline, виявлення leakage, вилучення даних, негативного результату та суттєвого AI-assisted рішення.</p>
+<p>Створіть 2–3 демонстраційні записи, характерні для власної дисертації.</p>
+</section>
+<section id="завдання-8.-проведіть-аудит-ризиків-дослідницької-доброчесності" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-8.-проведіть-аудит-ризиків-дослідницької-доброчесності">Завдання 8. Проведіть аудит ризиків дослідницької доброчесності</h3>
+<p>Побудуйте <code>Research Integrity Risk Register v1</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Risk ID</th>
+<th>Ризик</th>
+<th>Де може виникнути?</th>
+<th>Імовірність</th>
+<th>Наслідок</th>
+<th>Запобіжник</th>
+<th>Як буде виявлено?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RI01</td>
+<td>selective reporting</td>
+<td>…</td>
+<td>low/medium/high</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>RI02</td>
+<td>p-hacking / multiple testing</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>RI03</td>
+<td>HARKing</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>RI04</td>
+<td>undocumented data edits</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>RI05</td>
+<td>test-set leakage</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>RI06</td>
+<td>AI hallucination / fabricated reference</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Додайте предметно специфічні ризики. Для нерелевантного ризику допускається <code>N/A</code> з обґрунтуванням.</p>
+</section>
+<section id="завдання-9.-розмежуйте-confirmatory-та-exploratory-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-9.-розмежуйте-confirmatory-та-exploratory-analysis">Завдання 9. Розмежуйте confirmatory та exploratory analysis</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>RQ / H</th>
+<th>Confirmatory component</th>
+<th>Що фіксується до аналізу?</th>
+<th>Допустимий exploratory component</th>
+<th>Як позначається post hoc результат?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ1 / H1</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>RQ2 / H2</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Сформулюйте власне правило:</p>
+<blockquote class="blockquote">
+<p><em>Якщо під час аналізу виникає нова гіпотеза, то …</em></p>
+</blockquote>
+<p>Мета – не заборонити дослідницький пошук, а не допустити подання post hoc гіпотези як заздалегідь визначеної.</p>
+</section>
+<section id="завдання-10.-сформуйте-ai-usage-statement-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-10.-сформуйте-ai-usage-statement-v1">Завдання 10. Сформуйте <code>AI Usage Statement v1</code></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Етап</th>
+<th>Tool / Model</th>
+<th>Мета</th>
+<th>Вхід / Context</th>
+<th>Output</th>
+<th>Verification</th>
+<th>Human Decision</th>
+<th>Вплив на Evidence / Claim</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Literature search</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>none / indirect / direct</td>
+</tr>
+<tr class="even">
+<td>Coding</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Data analysis</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Writing</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Після таблиці сформулюйте коротку декларацію використання ШІ. Вона має визначати інструменти, функції, перевірку результатів, правила збереження суттєвих AI-виходів, відповідальність дослідника та обмеження щодо передачі даних зовнішнім сервісам.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Важливо
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Фраза «використовував ChatGPT/LLM» недостатня, якщо AI-вихід впливає на Evidence або Claim. Не переносіть AI-generated посилання, факти, дані чи результати до доказової бази без незалежної перевірки.</p>
+</div>
+</div>
+</section>
+<section id="завдання-11.-визначте-політику-відкритості-та-доступу" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-11.-визначте-політику-відкритості-та-доступу">Завдання 11. Визначте політику відкритості та доступу</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Артефакт</th>
+<th style="text-align: center;">Open</th>
+<th style="text-align: center;">Restricted</th>
+<th style="text-align: center;">Closed</th>
+<th>Причина обмеження</th>
+<th>Що можна оприлюднити замість нього?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Raw data</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Processed data</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Code</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Configs</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Model / checkpoint</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Experiment logs</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Aggregated results</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Врахуйте персональні дані, ліцензії, умови API, права третіх сторін, конфіденційність і безпекові обмеження. Для закритих даних розгляньте metadata, schema, synthetic/minimal data або контрольований доступ.</p>
+</section>
+<section id="завдання-12.-проведіть-аудит-reproducibility-debt" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-12.-проведіть-аудит-reproducibility-debt">Завдання 12. Проведіть аудит <code>Reproducibility Debt</code></h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Поточний стан</th>
+<th>Debt</th>
+<th>Ризик</th>
+<th>Що виправити</th>
+<th>Пріоритет</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Data versions</td>
+<td>…</td>
+<td>low/medium/high</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Code versions</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Environment</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Experiment configs</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Result provenance</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Research log</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>AI usage records</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Сформулюйте три першочергові дії, які потрібно виконати найближчим часом, щоб не накопичувати борг відтворюваності.</p>
+</section>
+<section id="завдання-13.-побудуйте-reproducibility-traceability-map-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-13.-побудуйте-reproducibility-traceability-map-v1">Завдання 13. Побудуйте <code>Reproducibility &amp; Traceability Map v1</code></h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    S("🌐 Source") --&gt; D("📦 Versioned Data")
+    C("💻 Versioned Code") --&gt; E("🧪 Experiment ID")
+    P("⚙️ Config + Environment") --&gt; E
+    D --&gt; E
+    E --&gt; R("📊 Result ID")
+    R --&gt; V("🛡️ Validation")
+    V --&gt; CL("💡 Claim ID")
+    CL --&gt; CO("🎓 Contribution")
+    L("📓 Research Log") -.-&gt; E
+    A("🤖 AI Usage Log") -.-&gt; E
+    classDef source fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#111827;
+    classDef process fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef evidence fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#111827;
+    classDef result fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#111827;
+    class S,D,C,P source;
+    class E,L,A process;
+    class R,V evidence;
+    class CL,CO result;
+</pre>
+</div>
+<p></p><figcaption> Шаблон інтегрованої карти відтворюваності та простежуваності</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<p>Замініть шаблон власною картою. На ній мають бути видимі входи, версії коду/процедур, конфігурація, експеримент, результат, валідація, Claim, журналювання рішень та AI-assisted компонент – якщо він є.</p>
+</section>
+<section id="завдання-14.-сформуйте-підсумковий-reproducibility-traceability-integrity-plan-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-14.-сформуйте-підсумковий-reproducibility-traceability-integrity-plan-v1">Завдання 14. Сформуйте підсумковий <code>Reproducibility, Traceability &amp; Integrity Plan v1</code></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Рішення</th>
+<th>Артефакт / механізм</th>
+<th>Коли оновлюється?</th>
+<th>Критерій готовності</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Repository structure</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Data provenance</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Code/version control</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Environment</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Experiment tracking</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Claim traceability</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>Research log</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Integrity safeguards</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td>AI usage</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td>Openness/access</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Завершіть роботу відповіддю:</p>
+<blockquote class="blockquote">
+<p><em>Які конкретні властивості мого дослідницького процесу дозволять іншому досліднику перевірити походження та обґрунтованість ключових наукових тверджень?</em></p>
+</blockquote>
+</section>
+</section>
+<section id="що-потрібно-подати-на-захист" class="level2">
+<h2 class="anchored" data-anchor-id="що-потрібно-подати-на-захист">Що потрібно подати на захист</h2>
+<p>У зошиті мають бути представлені:</p>
+<ol type="1">
+<li>актуалізований перелік вхідних артефактів ЛР1–ЛР6;</li>
+<li>структура дослідницького репозиторію;</li>
+<li><code>Data &amp; Artifact Provenance Map v1</code>;</li>
+<li><code>Reproducibility Protocol v1</code>;</li>
+<li>політика версіонування та ідентифікації;</li>
+<li><code>Claim Traceability Matrix v1</code>;</li>
+<li><code>Research Log Template v1</code>;</li>
+<li><code>Research Integrity Risk Register v1</code>;</li>
+<li>правила confirmatory/exploratory analysis;</li>
+<li><code>AI Usage Statement v1</code>;</li>
+<li>політика відкритості та доступу;</li>
+<li>аудит <code>Reproducibility Debt</code>;</li>
+<li><code>Reproducibility &amp; Traceability Map v1</code>;</li>
+<li><code>Reproducibility, Traceability &amp; Integrity Plan v1</code>;</li>
+<li>короткий підсумковий висновок.</li>
+</ol>
+<p>Усі артефакти мають стосуватися <em>власного дисертаційного дослідження</em>.</p>
+</section>
+<section id="критерії-оцінювання" class="level2">
+<h2 class="anchored" data-anchor-id="критерії-оцінювання">Критерії оцінювання</h2>
+<p>Максимальна оцінка за лабораторну роботу – <strong>7 балів</strong>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th style="text-align: right;">Бали</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Структура репозиторію, provenance та політика версіонування</td>
+<td style="text-align: right;">1.25</td>
+</tr>
+<tr class="even">
+<td><code>Reproducibility Protocol v1</code></td>
+<td style="text-align: right;">1.25</td>
+</tr>
+<tr class="odd">
+<td><code>Claim Traceability Matrix v1</code> та інтегрована карта</td>
+<td style="text-align: right;">1.50</td>
+</tr>
+<tr class="even">
+<td>Research log і аудит ризиків доброчесності</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="odd">
+<td><code>AI Usage Statement v1</code></td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td>Політика відкритості, reproducibility debt і цілісність плану</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="odd">
+<td><strong>Разом</strong></td>
+<td style="text-align: right;"><strong>7.00</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Захист роботи
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Під час захисту потрібно показати <em>один повний ланцюг простежуваності</em> для ключового майбутнього Claim: від джерела даних/іншого входу та версії коду до результату, валідації й наукового твердження.</p>
+<p>Також потрібно пояснити один найбільш суттєвий ризик дослідницької доброчесності для власної дисертації та спосіб його контролю.</p>
+</div>
+</div>
+</section>
+<section id="контрольні-запитання" class="level2">
+<h2 class="anchored" data-anchor-id="контрольні-запитання">Контрольні запитання</h2>
+<ol type="1">
+<li>Чим відтворюваність відрізняється від відтворення незалежною реалізацією?</li>
+<li>Чому відкритий код не гарантує відтворюваність?</li>
+<li>Що таке data provenance?</li>
+<li>Які компоненти потрібно зафіксувати для відновлення стану експерименту?</li>
+<li>Яку роль відіграють Git commit та experiment ID?</li>
+<li>Чому один <code>random seed</code> не гарантує стійкість результату?</li>
+<li>Що таке Claim Traceability Matrix?</li>
+<li>Що означає traceability gap?</li>
+<li>Навіщо потрібен research log за наявності Git?</li>
+<li>Чим selective reporting відрізняється від коректного model selection?</li>
+<li>У чому полягає p-hacking?</li>
+<li>Що таке HARKing?</li>
+<li>Як коректно працювати з гіпотезою, що виникла після аналізу?</li>
+<li>Чому негативні та нульові результати важливі для доброчесності?</li>
+<li>Які ризики виникають при використанні LLM у дослідницькому pipeline?</li>
+<li>Що потрібно включити до AI Usage Statement?</li>
+<li>Чому потрібно зберігати AI output, якщо він впливає на Evidence?</li>
+<li>Чим FAIR відрізняється від повністю відкритих даних?</li>
+<li>Що таке reproducibility debt?</li>
+<li>Як пов’язати Claim з конкретними даними, кодом і валідацією?</li>
+</ol>
+</section>
+<section id="підсумок" class="level2">
+<h2 class="anchored" data-anchor-id="підсумок">Підсумок</h2>
+<p>Результатом ЛР7 є <em>план керування доказовим походженням майбутніх результатів дисертації</em>:</p>
+<p><span class="math display">\[
+\text{Source}
+\rightarrow
+\text{Data / Artifact}
+\rightarrow
+\text{Versioned Procedure}
+\rightarrow
+\text{Experiment}
+\rightarrow
+\text{Result}
+\rightarrow
+\text{Validation}
+\rightarrow
+\text{Claim}
+\rightarrow
+\text{Contribution}.
+\]</span></p>
+<p>На наступному етапі ця система разом з артефактами ЛР1–ЛР6 стане входом до <em>фінального методологічного каркаса дисертаційного дослідження</em> та другої контрольної точки перегляду.</p>
+</section>
+<section id="рекомендовані-джерела" class="level2">
+<h2 class="anchored" data-anchor-id="рекомендовані-джерела">Рекомендовані джерела</h2>
+<ol type="1">
+<li>National Academies of Sciences, Engineering, and Medicine. <em>Reproducibility and Replicability in Science</em>. Washington, DC: The National Academies Press, 2019. DOI: 10.17226/25303.</li>
+<li>Peng R. D. Reproducible Research in Computational Science. <em>Science</em>. 2011. Vol. 334, No.&nbsp;6060. P. 1226–1227. DOI: 10.1126/science.1213847.</li>
+<li>Sandve G. K., Nekrutenko A., Taylor J., Hovig E. Ten Simple Rules for Reproducible Computational Research. <em>PLoS Computational Biology</em>. 2013. Vol. 9, No.&nbsp;10. e1003285. DOI: 10.1371/journal.pcbi.1003285.</li>
+<li>Wilkinson M. D. et al.&nbsp;The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>. 2016. Vol. 3. Article 160018. DOI: 10.1038/sdata.2016.18.</li>
+<li>Nosek B. A. et al.&nbsp;Promoting an open research culture. <em>Science</em>. 2015. Vol. 348, No.&nbsp;6242. P. 1422–1425. DOI: 10.1126/science.aab2374.</li>
+<li>Munafò M. R. et al.&nbsp;A manifesto for reproducible science. <em>Nature Human Behaviour</em>. 2017. Vol. 1. Article 0021. DOI: 10.1038/s41562-016-0021.</li>
+<li>Wilson G. et al.&nbsp;Good enough practices in scientific computing. <em>PLoS Computational Biology</em>. 2017. Vol. 13, No.&nbsp;6. e1005510. DOI: 10.1371/journal.pcbi.1005510.</li>
+<li>Kerr N. L. HARKing: Hypothesizing After the Results are Known. <em>Personality and Social Psychology Review</em>. 1998. Vol. 2, No.&nbsp;3. P. 196–217. DOI: 10.1207/s15327957pspr0203_4.</li>
+<li>Simmons J. P., Nelson L. D., Simonsohn U. False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant. <em>Psychological Science</em>. 2011. Vol. 22, No.&nbsp;11. P. 1359–1366. DOI: 10.1177/0956797611417632.</li>
+<li>Pineau J. et al.&nbsp;Improving Reproducibility in Machine Learning Research: A Report from the NeurIPS 2019 Reproducibility Program. <em>Journal of Machine Learning Research</em>. 2021. Vol. 22, No.&nbsp;164. P. 1–20.</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

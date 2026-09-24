@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="uk" xml:lang="uk"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="© Valeriy Sydorenko, 2026">
+<meta name="description" content="Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»">
+
+<title>Лабораторна робота 2. Методологічна архітектура дисертації</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="mond-phd-lab2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="mond-phd-lab2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="mond-phd-lab2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="mond-phd-lab2_files/libs/quarto-html/popper.min.js"></script>
+<script src="mond-phd-lab2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="mond-phd-lab2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="mond-phd-lab2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="mond-phd-lab2_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="mond-phd-lab2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="mond-phd-lab2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="mond-phd-lab2_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="mond-phd-lab2_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="mond-phd-lab2_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="mond-phd-lab2_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#що-ви-будете-вміти" id="toc-що-ви-будете-вміти" class="nav-link active" data-scroll-target="#що-ви-будете-вміти">Що ви будете вміти?</a></li>
+  <li><a href="#короткі-теоретичні-відомості" id="toc-короткі-теоретичні-відомості" class="nav-link" data-scroll-target="#короткі-теоретичні-відомості">Короткі теоретичні відомості</a>
+  <ul class="collapse">
+  <li><a href="#архітектура-дисертації-це-не-зміст-розділів" id="toc-архітектура-дисертації-це-не-зміст-розділів" class="nav-link" data-scroll-target="#архітектура-дисертації-це-не-зміст-розділів">1. Архітектура дисертації – це не зміст розділів</a></li>
+  <li><a href="#від-проблеми-до-дослідницької-прогалини" id="toc-від-проблеми-до-дослідницької-прогалини" class="nav-link" data-scroll-target="#від-проблеми-до-дослідницької-прогалини">2. Від проблеми до дослідницької прогалини</a></li>
+  <li><a href="#дослідницьке-питання-як-міст-між-проблемою-та-дослідженням" id="toc-дослідницьке-питання-як-міст-між-проблемою-та-дослідженням" class="nav-link" data-scroll-target="#дослідницьке-питання-як-міст-між-проблемою-та-дослідженням">3. Дослідницьке питання як міст між проблемою та дослідженням</a></li>
+  <li><a href="#гіпотеза-потрібна-не-завжди" id="toc-гіпотеза-потрібна-не-завжди" class="nav-link" data-scroll-target="#гіпотеза-потрібна-не-завжди">4. Гіпотеза потрібна не завжди</a></li>
+  <li><a href="#задача-дослідження-не-технічна-операція" id="toc-задача-дослідження-не-технічна-операція" class="nav-link" data-scroll-target="#задача-дослідження-не-технічна-операція">5. Задача дослідження – не технічна операція</a></li>
+  <li><a href="#карта-тверджень" id="toc-карта-тверджень" class="nav-link" data-scroll-target="#карта-тверджень">6. Карта тверджень</a></li>
+  </ul></li>
+  <li><a href="#хід-роботи" id="toc-хід-роботи" class="nav-link" data-scroll-target="#хід-роботи">Хід роботи</a>
+  <ul class="collapse">
+  <li><a href="#крок-1.-відновіть-вихідні-артефакти-лр1" id="toc-крок-1.-відновіть-вихідні-артефакти-лр1" class="nav-link" data-scroll-target="#крок-1.-відновіть-вихідні-артефакти-лр1">Крок 1. Відновіть вихідні артефакти ЛР1</a></li>
+  <li><a href="#крок-2.-проведіть-аудит-research-problem-v1" id="toc-крок-2.-проведіть-аудит-research-problem-v1" class="nav-link" data-scroll-target="#крок-2.-проведіть-аудит-research-problem-v1">Крок 2. Проведіть аудит <code>Research Problem v1</code></a></li>
+  <li><a href="#крок-3.-сформуйте-research-gap-v1" id="toc-крок-3.-сформуйте-research-gap-v1" class="nav-link" data-scroll-target="#крок-3.-сформуйте-research-gap-v1">Крок 3. Сформуйте <code>Research Gap v1</code></a></li>
+  <li><a href="#крок-4.-визначте-обєкт-і-предмет-дослідження" id="toc-крок-4.-визначте-обєкт-і-предмет-дослідження" class="nav-link" data-scroll-target="#крок-4.-визначте-обєкт-і-предмет-дослідження">Крок 4. Визначте об’єкт і предмет дослідження</a></li>
+  <li><a href="#крок-5.-сформулюйте-aim-v1" id="toc-крок-5.-сформулюйте-aim-v1" class="nav-link" data-scroll-target="#крок-5.-сформулюйте-aim-v1">Крок 5. Сформулюйте <code>Aim v1</code></a></li>
+  <li><a href="#крок-6.-побудуйте-систему-дослідницьких-питань-rq-system-v1" id="toc-крок-6.-побудуйте-систему-дослідницьких-питань-rq-system-v1" class="nav-link" data-scroll-target="#крок-6.-побудуйте-систему-дослідницьких-питань-rq-system-v1">Крок 6. Побудуйте систему дослідницьких питань <code>RQ System v1</code></a></li>
+  <li><a href="#крок-7.-визначте-де-потрібні-гіпотези" id="toc-крок-7.-визначте-де-потрібні-гіпотези" class="nav-link" data-scroll-target="#крок-7.-визначте-де-потрібні-гіпотези">Крок 7. Визначте, де потрібні гіпотези</a></li>
+  <li><a href="#крок-8.-сформулюйте-research-tasks-v1" id="toc-крок-8.-сформулюйте-research-tasks-v1" class="nav-link" data-scroll-target="#крок-8.-сформулюйте-research-tasks-v1">Крок 8. Сформулюйте <code>Research Tasks v1</code></a></li>
+  <li><a href="#крок-9.-визначте-очікувані-докази" id="toc-крок-9.-визначте-очікувані-докази" class="nav-link" data-scroll-target="#крок-9.-визначте-очікувані-докази">Крок 9. Визначте очікувані докази</a></li>
+  <li><a href="#крок-10.-побудуйте-claim-map-v1" id="toc-крок-10.-побудуйте-claim-map-v1" class="nav-link" data-scroll-target="#крок-10.-побудуйте-claim-map-v1">Крок 10. Побудуйте <code>Claim Map v1</code></a></li>
+  <li><a href="#крок-11.-побудуйте-власну-карту-тверджень" id="toc-крок-11.-побудуйте-власну-карту-тверджень" class="nav-link" data-scroll-target="#крок-11.-побудуйте-власну-карту-тверджень">Крок 11. Побудуйте власну карту тверджень</a></li>
+  <li><a href="#крок-12.-сформулюйте-expected-contributions-v1" id="toc-крок-12.-сформулюйте-expected-contributions-v1" class="nav-link" data-scroll-target="#крок-12.-сформулюйте-expected-contributions-v1">Крок 12. Сформулюйте <code>Expected Contributions v1</code></a></li>
+  <li><a href="#крок-13.-побудуйте-матрицю-логічної-узгодженості" id="toc-крок-13.-побудуйте-матрицю-логічної-узгодженості" class="nav-link" data-scroll-target="#крок-13.-побудуйте-матрицю-логічної-узгодженості">Крок 13. Побудуйте матрицю логічної узгодженості</a></li>
+  <li><a href="#крок-14.-проведіть-аудит-невідповідностей" id="toc-крок-14.-проведіть-аудит-невідповідностей" class="nav-link" data-scroll-target="#крок-14.-проведіть-аудит-невідповідностей">Крок 14. Проведіть аудит невідповідностей</a></li>
+  <li><a href="#крок-15.-зберіть-methodological-architecture-v1" id="toc-крок-15.-зберіть-methodological-architecture-v1" class="nav-link" data-scroll-target="#крок-15.-зберіть-methodological-architecture-v1">Крок 15. Зберіть <code>Methodological Architecture v1</code></a></li>
+  </ul></li>
+  <li><a href="#архітектура-як-система-версій" id="toc-архітектура-як-система-версій" class="nav-link" data-scroll-target="#архітектура-як-система-версій">16. Архітектура як система версій</a></li>
+  <li><a href="#артефакти-як-система-версій" id="toc-артефакти-як-система-версій" class="nav-link" data-scroll-target="#артефакти-як-система-версій">17. Артефакти як система версій</a></li>
+  <li><a href="#мінімальна-методологічна-архітектура-дисертації-v1" id="toc-мінімальна-методологічна-архітектура-дисертації-v1" class="nav-link" data-scroll-target="#мінімальна-методологічна-архітектура-дисертації-v1">18. Мінімальна методологічна архітектура дисертації v1</a></li>
+  <li><a href="#самоперевірка-архітектури" id="toc-самоперевірка-архітектури" class="nav-link" data-scroll-target="#самоперевірка-архітектури">19. Самоперевірка архітектури</a></li>
+  <li><a href="#перехід-до-лр3" id="toc-перехід-до-лр3" class="nav-link" data-scroll-target="#перехід-до-лр3">20. Перехід до ЛР3</a></li>
+  <li><a href="#підсумкова-концептуальна-схема" id="toc-підсумкова-концептуальна-схема" class="nav-link" data-scroll-target="#підсумкова-концептуальна-схема">Підсумкова концептуальна схема</a></li>
+  <li><a href="#висновки" id="toc-висновки" class="nav-link" data-scroll-target="#висновки">Висновки</a></li>
+  <li><a href="#список-літератури" id="toc-список-літератури" class="nav-link" data-scroll-target="#список-літератури">Список літератури</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Лабораторна робота 2. Методологічна архітектура дисертації</h1>
+</div>
+
+<div>
+  <div class="description">
+    <strong>Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»</strong>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>© <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/">Valeriy Sydorenko</a>, 2026 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24 вересня 2026 р.</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Мета</strong>: побудувати першу цілісну версію методологічної архітектури власного дисертаційного дослідження, пов’язавши наукову проблему, дослідницьку прогалину, об’єкт, предмет, мету, дослідницькі питання, гіпотези, задачі, очікувані докази, попередні наукові твердження та очікувані внески.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Попередньо опрацювати матеріали <strong>Лекції 2 «Від наукової проблеми до архітектури дисертації»</strong>.</p>
+<p>ЛР2 є <strong>прямим продовженням ЛР1</strong>. Не потрібно формулювати нову тему або починати дослідницький задум заново. Вихідними матеріалами є ваші:</p>
+<ul>
+<li><code>Research Problem v1</code>;</li>
+<li><code>Conceptual Framework v1</code>;</li>
+<li>результати аудиту проблематики з ЛР1.</li>
+</ul>
+<p>На цьому етапі ми перетворюємо їх на <em>методологічну архітектуру</em> (<em>methodological architecture</em>) дисертації.</p>
+<p>Усі формулювання мають статус <strong>робочих версій</strong>. У ЛР3–ЛР4 вони будуть перевірятися та уточнюватися на основі систематичного аналізу наукової літератури.</p>
+</div>
+</div>
+<section id="що-ви-будете-вміти" class="level2">
+<h2 class="anchored" data-anchor-id="що-ви-будете-вміти">Що ви будете вміти?</h2>
+<p>Після виконання лабораторної роботи ви зможете:</p>
+<ul>
+<li>відрізняти проблемну ситуацію, наукову проблему та дослідницьку прогалину (<em>research gap</em>);</li>
+<li>уточнювати наукову проблему без передчасної декларації наукової новизни;</li>
+<li>формулювати об’єкт, предмет і мету як взаємопов’язані компоненти дослідження;</li>
+<li>декомпозувати проблему в систему дослідницьких питань (<em>research questions</em>, RQ);</li>
+<li>визначати, де потрібні перевірювані гіпотези (<em>hypotheses</em>), а де достатньо дослідницьких питань;</li>
+<li>формулювати задачі як кроки отримання нового знання, а не перелік технічних операцій;</li>
+<li>будувати попередню карту наукових тверджень (<em>Claim Map</em>);</li>
+<li>визначати, які докази (<em>evidence</em>) потенційно потрібні для кожного твердження;</li>
+<li>виконувати пряму та зворотну перевірку логічної узгодженості архітектури;</li>
+<li>сформувати <code>Methodological Architecture v1</code> як артефакт другого етапу власної PhD-програми.</li>
+</ul>
+</section>
+<section id="короткі-теоретичні-відомості" class="level2">
+<h2 class="anchored" data-anchor-id="короткі-теоретичні-відомості">Короткі теоретичні відомості</h2>
+<section id="архітектура-дисертації-це-не-зміст-розділів" class="level3">
+<h3 class="anchored" data-anchor-id="архітектура-дисертації-це-не-зміст-розділів">1. Архітектура дисертації – це не зміст розділів</h3>
+<p>На цьому етапі нас цікавить не майбутня нумерація розділів дисертації, а <strong>логіка дослідження</strong>.</p>
+<p>Мінімальний ланцюг має вигляд:</p>
+<p><span class="math display">\[
+\text{Проблема}
+\rightarrow
+\text{Питання}
+\rightarrow
+\text{Дослідження}
+\rightarrow
+\text{Докази}
+\rightarrow
+\text{Твердження}
+\rightarrow
+\text{Внесок}.
+\]</span></p>
+<p>Кожна стрілка означає змістовий зв’язок, який аспірант повинен уміти пояснити.</p>
+<p>Якщо певна задача не відповідає жодному дослідницькому питанню, або заявлений внесок не можна простежити до конкретних доказів, архітектура потребує перегляду.</p>
+</section>
+<section id="від-проблеми-до-дослідницької-прогалини" class="level3">
+<h3 class="anchored" data-anchor-id="від-проблеми-до-дослідницької-прогалини">2. Від проблеми до дослідницької прогалини</h3>
+<p><strong>Наукова проблема</strong> (<em>research problem</em>) описує науково значуще невідоме.</p>
+<p><strong>Дослідницька прогалина</strong> (<em>research gap</em>) конкретизує, чого саме бракує в наявному науковому знанні для усунення цього невідомого.</p>
+<p>На ЛР2 ми формуємо лише <code>Research Gap v1</code>.</p>
+<p>Це важливе обмеження:</p>
+<blockquote class="blockquote">
+<p><code>Research Gap v1</code> – <strong>робоча гіпотеза про стан наукового поля</strong>, а не вже доведений факт.</p>
+</blockquote>
+<p>Систематичну доказову перевірку цієї конструкції ми почнемо в ЛР3.</p>
+</section>
+<section id="дослідницьке-питання-як-міст-між-проблемою-та-дослідженням" class="level3">
+<h3 class="anchored" data-anchor-id="дослідницьке-питання-як-міст-між-проблемою-та-дослідженням">3. Дослідницьке питання як міст між проблемою та дослідженням</h3>
+<p>Дослідницьке питання (<em>research question</em>, RQ) переводить загальну проблему в конкретне невідоме, для якого можна визначити спосіб отримання доказів.</p>
+<p><span class="math display">\[
+RQ_i
+\rightarrow
+\text{потрібні докази}
+\rightarrow
+\text{потенційне твердження}.
+\]</span></p>
+<p>Хороше RQ:</p>
+<ul>
+<li>безпосередньо випливає з проблеми;</li>
+<li>не має тривіальної відповіді;</li>
+<li>допускає дослідницьку процедуру;</li>
+<li>не містить наперед заданого «правильного» результату;</li>
+<li>може привести до обґрунтованого наукового твердження.</li>
+</ul>
+</section>
+<section id="гіпотеза-потрібна-не-завжди" class="level3">
+<h3 class="anchored" data-anchor-id="гіпотеза-потрібна-не-завжди">4. Гіпотеза потрібна не завжди</h3>
+<p>Гіпотеза (<em>hypothesis</em>) доцільна тоді, коли можна сформулювати конкретне перевірюване та спростовуване припущення.</p>
+<p>Наприклад:</p>
+<blockquote class="blockquote">
+<p>За однакового раннього вікна спостереження поєднання поведінкових і часових ознак забезпечує вищу якість класифікації, ніж використання лише поведінкових ознак.</p>
+</blockquote>
+<p>Таке твердження можна перевірити.</p>
+<p>Натомість питання:</p>
+<blockquote class="blockquote">
+<p>Які групи ознак залишаються інформативними за скорочення історії спостережень?</p>
+</blockquote>
+<p>може залишатися RQ без попереднього припущення про відповідь.</p>
+<p>Отже, <strong>не потрібно штучно створювати гіпотезу для кожного RQ</strong>.</p>
+</section>
+<section id="задача-дослідження-не-технічна-операція" class="level3">
+<h3 class="anchored" data-anchor-id="задача-дослідження-не-технічна-операція">5. Задача дослідження – не технічна операція</h3>
+<p>Порівняйте:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Формулювання</th>
+<th>Тип</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Зібрати набір даних</td>
+<td>технічна операція</td>
+</tr>
+<tr class="even">
+<td>Реалізувати модель</td>
+<td>технічна операція</td>
+</tr>
+<tr class="odd">
+<td>Побудувати графіки</td>
+<td>технічна операція</td>
+</tr>
+<tr class="even">
+<td>Встановити, які групи ознак зберігають інформативність за скорочення вікна спостереження</td>
+<td>дослідницька задача</td>
+</tr>
+<tr class="odd">
+<td>Експериментально визначити межі застосовності методу</td>
+<td>дослідницька задача</td>
+</tr>
+</tbody>
+</table>
+<p>Технічні операції необхідні, але вони є <strong>засобами виконання дослідницьких задач</strong>.</p>
+</section>
+<section id="карта-тверджень" class="level3">
+<h3 class="anchored" data-anchor-id="карта-тверджень">6. Карта тверджень</h3>
+<p>Карта тверджень (<em>Claim Map</em>) – це попередня система наукових тверджень, які дисертація потенційно повинна мати право захищати після отримання достатніх доказів.</p>
+<p>На ЛР2 ми будуємо лише <code>Claim Map v1</code>.</p>
+<p>Тому формулюємо не:</p>
+<blockquote class="blockquote">
+<p>«Доведено, що метод X є кращим…»</p>
+</blockquote>
+<p>а:</p>
+<blockquote class="blockquote">
+<p>«Попереднє твердження C1: метод X потенційно забезпечує …; для перевірки потрібні …»</p>
+</blockquote>
+<p>Це захищає дослідницький дизайн від підміни дослідження бажаним результатом.</p>
+</section>
+</section>
+<section id="хід-роботи" class="level2">
+<h2 class="anchored" data-anchor-id="хід-роботи">Хід роботи</h2>
+<section id="крок-1.-відновіть-вихідні-артефакти-лр1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-1.-відновіть-вихідні-артефакти-лр1">Крок 1. Відновіть вихідні артефакти ЛР1</h3>
+<p>Перенесіть сюди <strong>саме ваші актуальні версії</strong> з ЛР1.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Артефакт</th>
+<th>Ваша версія</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Робоча назва дисертації</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>Research Problem v1</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Ключові концепти <code>Conceptual Framework v1</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Ключові зв’язки між концептами</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Основні припущення</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Найсуттєвіша невизначеність після ЛР1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Не переписуйте формулювання «для краси». На цьому кроці важливо зафіксувати <strong>точку входу</strong> до ЛР2.</p>
+</section>
+<section id="крок-2.-проведіть-аудит-research-problem-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-2.-проведіть-аудит-research-problem-v1">Крок 2. Проведіть аудит <code>Research Problem v1</code></h3>
+<p>Перевірте формулювання за критеріями.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Критерій</th>
+<th>Так / Ні / Частково</th>
+<th>Коментар</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Проблема описує дефіцит знання, а не лише практичну потребу</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Видно, що саме залишається невідомим</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Проблема не зводиться до «потрібно розробити систему»</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Проблема допускає отримання наукових тверджень</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Межі проблеми достатньо конкретні</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Формулювання не декларує результат наперед</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Після аудиту сформулюйте:</p>
+<blockquote class="blockquote">
+<p><strong><code>Research Problem v2</code>:</strong> …</p>
+</blockquote>
+<p>Окремо в 2–4 реченнях поясніть, <strong>що саме змінилося порівняно з v1 і чому</strong>.</p>
+</section>
+<section id="крок-3.-сформуйте-research-gap-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-3.-сформуйте-research-gap-v1">Крок 3. Сформуйте <code>Research Gap v1</code></h3>
+<p>Заповніть таблицю.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Робоче формулювання</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Що в цій проблемі вже відомо?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Які підходи вже існують?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Яке обмеження наявних підходів ви припускаєте?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Що залишається недостатньо дослідженим?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Чому саме ця прогалина важлива для <code>Research Problem v2</code>?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Якими джерелами це <strong>поки що</strong> підтверджується?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Що потрібно перевірити систематично в ЛР3?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Сформулюйте одним абзацом:</p>
+<blockquote class="blockquote">
+<p><strong><code>Research Gap v1</code>:</strong> …</p>
+</blockquote>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>На цьому етапі заборонено використовувати формулювання «ніхто не досліджував», «не існує методів», «уперше» без достатньої доказової бази.</p>
+<p>Коректніше: «недостатньо досліджено…», «залишається невизначеним…», «наявні результати не дозволяють встановити…». У ЛР3 ці твердження будуть перевірятися систематично.</p>
+</div>
+</div>
+</section>
+<section id="крок-4.-визначте-обєкт-і-предмет-дослідження" class="level3">
+<h3 class="anchored" data-anchor-id="крок-4.-визначте-обєкт-і-предмет-дослідження">Крок 4. Визначте об’єкт і предмет дослідження</h3>
+<p>Заповніть:</p>
+<blockquote class="blockquote">
+<p><strong>Об’єкт дослідження:</strong> …</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Предмет дослідження:</strong> …</p>
+</blockquote>
+<p>Після цього виконайте три перевірки.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Перевірка</th>
+<th>Відповідь</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Чи предмет справді звужує об’єкт?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Які конкретні властивості / закономірності / методи / моделі входять до предмета?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Чи всі ключові компоненти предмета пов’язані з <code>Research Problem v2</code>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Якщо предмет містить компонент, який не пов’язаний із проблемою, поясніть його необхідність або вилучіть.</p>
+</section>
+<section id="крок-5.-сформулюйте-aim-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-5.-сформулюйте-aim-v1">Крок 5. Сформулюйте <code>Aim v1</code></h3>
+<p>Сформулюйте мету дослідження.</p>
+<blockquote class="blockquote">
+<p><strong><code>Aim v1</code>:</strong> …</p>
+</blockquote>
+<p>Проведіть короткий аудит:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Питання</th>
+<th>Відповідь</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Який науково значущий результат має бути отриманий?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Як цей результат пов’язаний із проблемою?</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Чи не зведена мета лише до створення програмного продукту?</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Чи можна буде після завершення дослідження перевірити, чи досягнуто мету?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Якщо у формулюванні домінує «розробити систему / програму / застосунок», уточніть, <strong>яке нове знання повинно бути отримано за допомогою цього артефакту</strong>.</p>
+</section>
+<section id="крок-6.-побудуйте-систему-дослідницьких-питань-rq-system-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-6.-побудуйте-систему-дослідницьких-питань-rq-system-v1">Крок 6. Побудуйте систему дослідницьких питань <code>RQ System v1</code></h3>
+<p>Сформулюйте <strong>3–5 взаємопов’язаних RQ</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Дослідницьке питання</th>
+<th>Яку частину проблеми воно розкриває?</th>
+<th>Який тип відповіді очікується?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RQ2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RQ4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Після заповнення перевірте:</p>
+<ol type="1">
+<li>чи немає двох RQ, що фактично питають одне й те саме;</li>
+<li>чи кожне RQ пов’язане з <code>Research Problem v2</code>;</li>
+<li>чи можна для кожного RQ уявити процедуру отримання відповіді;</li>
+<li>чи сукупність RQ достатньо покриває сформульовану мету.</li>
+</ol>
+<p>За потреби залиште лише 3–4 сильні питання замість 5 формальних.</p>
+</section>
+<section id="крок-7.-визначте-де-потрібні-гіпотези" class="level3">
+<h3 class="anchored" data-anchor-id="крок-7.-визначте-де-потрібні-гіпотези">Крок 7. Визначте, де потрібні гіпотези</h3>
+<p>Для кожного RQ прийміть рішення.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>RQ</th>
+<th>Чи потрібна гіпотеза?</th>
+<th>Обґрунтування</th>
+<th><code>H_i</code>, якщо потрібна</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RQ2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RQ4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Для кожної сформульованої гіпотези дайте відповідь:</p>
+<blockquote class="blockquote">
+<p><strong>Який можливий результат змусить мене визнати, що ця гіпотеза не отримала достатньої підтримки?</strong></p>
+</blockquote>
+<p>Якщо такої відповіді немає, гіпотеза, ймовірно, не є достатньо спростовуваною.</p>
+</section>
+<section id="крок-8.-сформулюйте-research-tasks-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-8.-сформулюйте-research-tasks-v1">Крок 8. Сформулюйте <code>Research Tasks v1</code></h3>
+<p>Тепер перетворіть систему RQ на 4–6 дослідницьких задач.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Дослідницька задача</th>
+<th>Пов’язане RQ / H</th>
+<th>Очікуваний результат</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T4</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T6</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Після заповнення виконайте <strong>тест на ізольовану задачу</strong>:</p>
+<blockquote class="blockquote">
+<p>Якщо видалити цю задачу, яке RQ залишиться без відповіді або яке майбутнє твердження втратить доказову основу?</p>
+</blockquote>
+<p>Якщо відповідь – «жодне», задача, ймовірно, є зайвою або суто технічною.</p>
+</section>
+<section id="крок-9.-визначте-очікувані-докази" class="level3">
+<h3 class="anchored" data-anchor-id="крок-9.-визначте-очікувані-докази">Крок 9. Визначте очікувані докази</h3>
+<p>Для кожного RQ / задачі поки що визначаємо <strong>тип доказів</strong>, а не остаточний експериментальний протокол.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>RQ / Task</th>
+<th>Які докази (<em>evidence</em>) потрібні?</th>
+<th>Можливе джерело</th>
+<th>Основна загроза валідності</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Приклади типів доказів:</p>
+<ul>
+<li>результати контрольованого експерименту;</li>
+<li>порівняння з базовими моделями (<em>baselines</em>);</li>
+<li>абляційний аналіз;</li>
+<li>аналіз чутливості;</li>
+<li>статистична оцінка ефекту;</li>
+<li>перевірка на незалежному наборі даних;</li>
+<li>аналіз помилок;</li>
+<li>теоретичне доведення;</li>
+<li>експертна оцінка – якщо вона методологічно виправдана.</li>
+</ul>
+<p>На ЛР2 достатньо визначити, <strong>який доказ був би релевантним</strong>. Детальний дизайн буде уточнюватися пізніше.</p>
+</section>
+<section id="крок-10.-побудуйте-claim-map-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-10.-побудуйте-claim-map-v1">Крок 10. Побудуйте <code>Claim Map v1</code></h3>
+<p>Сформулюйте 3–6 <strong>попередніх наукових тверджень</strong> (<em>candidate claims</em>), які потенційно можуть виникнути з вашої дослідницької програми.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Попереднє твердження</th>
+<th>Яке RQ підтримує?</th>
+<th>Які докази потрібні?</th>
+<th>За яких умов твердження не можна буде прийняти?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>C4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>C5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Формулюйте твердження <strong>умовно</strong>, не видаючи очікуваний результат за встановлений факт.</p>
+<p>Наприклад:</p>
+<blockquote class="blockquote">
+<p><code>C2 v1</code>: скорочення вікна спостереження до <span class="math inline">\(w\)</span> потенційно зберігає прийнятну якість класифікації за умов <span class="math inline">\(C\)</span>; твердження потребує перевірки на …</p>
+</blockquote>
+<p>а не:</p>
+<blockquote class="blockquote">
+<p>«Доведено, що запропонований метод забезпечує високу точність».</p>
+</blockquote>
+</section>
+<section id="крок-11.-побудуйте-власну-карту-тверджень" class="level3">
+<h3 class="anchored" data-anchor-id="крок-11.-побудуйте-власну-карту-тверджень">Крок 11. Побудуйте власну карту тверджень</h3>
+<p>На основі попереднього кроку створіть Mermaid-схему.</p>
+<p>Шаблон:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '16px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'lineColor': '#6366f1',
+  'edgeLabelBackground': '#ffffff'
+}}}%%
+flowchart TD
+    C0("🌱 Інтегральний очікуваний внесок")
+    C1("💬 C1: ...")
+    C2("💬 C2: ...")
+    C3("💬 C3: ...")
+    C4("💬 C4: ...")
+
+    C1 --&gt; C0
+    C2 --&gt; C0
+    C3 --&gt; C0
+    C4 --&gt; C0
+
+    classDef local fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    classDef main fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+
+    class C1,C2,C3,C4 local
+    class C0 main
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>За потреби змініть кількість вузлів. Схема повинна відображати <strong>вашу реальну логіку</strong>, а не структуру прикладу.</p>
+</section>
+<section id="крок-12.-сформулюйте-expected-contributions-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-12.-сформулюйте-expected-contributions-v1">Крок 12. Сформулюйте <code>Expected Contributions v1</code></h3>
+<p>Сформулюйте 1–3 очікувані внески.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Очікуваний внесок</th>
+<th>Які твердження його підтримують?</th>
+<th>У чому потенційна новизна?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EC1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EC2</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>EC3</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>На цьому етапі використовуйте обережну модальність:</p>
+<ul>
+<li>«очікується встановити…»;</li>
+<li>«передбачається обґрунтувати…»;</li>
+<li>«потенційний внесок полягає у…»;</li>
+<li>«потребує подальшої перевірки…».</li>
+</ul>
+<p>Не використовуйте «вперше», якщо це ще не підтверджено систематичним аналізом літератури.</p>
+</section>
+<section id="крок-13.-побудуйте-матрицю-логічної-узгодженості" class="level3">
+<h3 class="anchored" data-anchor-id="крок-13.-побудуйте-матрицю-логічної-узгодженості">Крок 13. Побудуйте матрицю логічної узгодженості</h3>
+<p>Це центральний артефакт ЛР2.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>RQ</th>
+<th>Гіпотеза</th>
+<th>Дослідницька задача</th>
+<th>Очікувані докази</th>
+<th>Попереднє твердження</th>
+<th>Очікуваний внесок</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RQ1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RQ2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RQ4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Після заповнення проведіть два аудити.</p>
+<p><strong>Пряма простежуваність</strong> (<em>forward traceability</em>):</p>
+<p><span class="math display">\[
+\text{Problem}
+\rightarrow
+RQ
+\rightarrow
+Task
+\rightarrow
+Evidence
+\rightarrow
+Claim
+\rightarrow
+Contribution.
+\]</span></p>
+<p><strong>Зворотна простежуваність</strong> (<em>backward traceability</em>):</p>
+<p><span class="math display">\[
+\text{Contribution}
+\rightarrow
+Claim
+\rightarrow
+Evidence
+\rightarrow
+Task
+\rightarrow
+RQ
+\rightarrow
+Problem.
+\]</span></p>
+<p>Позначте всі місця, де зв’язок є слабким або потребує додаткового обґрунтування.</p>
+</section>
+<section id="крок-14.-проведіть-аудит-невідповідностей" class="level3">
+<h3 class="anchored" data-anchor-id="крок-14.-проведіть-аудит-невідповідностей">Крок 14. Проведіть аудит невідповідностей</h3>
+<p>Перевірте власну архітектуру.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Потенційний дефект</th>
+<th>Виявлено?</th>
+<th>Що потрібно змінити?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Невідповідність між проблемою та метою (<em>Problem–Aim mismatch</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Невідповідність між метою та задачами (<em>Aim–Task mismatch</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Невідповідність між задачею та твердженням (<em>Task–Claim mismatch</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Невідповідність між доказами та твердженням (<em>Evidence–Claim mismatch</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Необґрунтоване завищення внеску (<em>Contribution inflation</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Ізольована задача (<em>orphan task</em>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Ізольований внесок (<em>orphan contribution</em>)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Для кожного виявленого дефекту внесіть зміну до відповідного артефакту.</p>
+</section>
+<section id="крок-15.-зберіть-methodological-architecture-v1" class="level3">
+<h3 class="anchored" data-anchor-id="крок-15.-зберіть-methodological-architecture-v1">Крок 15. Зберіть <code>Methodological Architecture v1</code></h3>
+<p>Після коригувань подайте фінальну версію компонентів ЛР2 в одній таблиці.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Версія після ЛР2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Research Problem v2</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>Research Gap v1</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>Object v1</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>Subject v1</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>Aim v1</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>RQ System v1</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>Hypotheses v1</code> – за потреби</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>Research Tasks v1</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>Claim Map v1</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>Expected Contributions v1</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Ця таблиця – <strong>не резюме для звіту</strong>, а контрольна збірка вашої поточної архітектури.</p>
+</section>
+</section>
+<section id="архітектура-як-система-версій" class="level2">
+<h2 class="anchored" data-anchor-id="архітектура-як-система-версій">16. Архітектура як система версій</h2>
+<p>Після ЛР2 компоненти не стають «остаточними».</p>
+<p>Зафіксуйте журнал змін:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Було</th>
+<th>Стало</th>
+<th>Причина зміни</th>
+<th>Що ще потрібно перевірити</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Research Problem</td>
+<td>v1</td>
+<td>v2</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Research Gap</td>
+<td>–</td>
+<td>v1</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Object / Subject</td>
+<td>–</td>
+<td>v1</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Aim</td>
+<td>–</td>
+<td>v1</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ System</td>
+<td>–</td>
+<td>v1</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Claim Map</td>
+<td>–</td>
+<td>v1</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>У ЛР3 до цього журналу повернемося після побудови протоколу пошуку, матриці доказів і карти сучасного стану досліджень.</p>
+</section>
+<section id="артефакти-як-система-версій" class="level2">
+<h2 class="anchored" data-anchor-id="артефакти-як-система-версій">17. Артефакти як система версій</h2>
+<p>На другому етапі PhD компоненти повинні мати явну версійність:</p>
+<ul>
+<li><code>Research Problem v2</code>;</li>
+<li><code>Research Gap v1</code>;</li>
+<li><code>Object / Subject v1</code>;</li>
+<li><code>Aim v1</code>;</li>
+<li><code>RQ System v1</code>;</li>
+<li><code>Hypotheses v1</code> – за потреби;</li>
+<li><code>Research Tasks v1</code>;</li>
+<li><code>Claim Map v1</code>;</li>
+<li><code>Expected Contributions v1</code>;</li>
+<li><code>Methodological Architecture v1</code>.</li>
+</ul>
+<p>Після ЛР3–ЛР4 частина цих артефактів буде переглянута на основі систематичної доказової бази.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Зміна формулювань після отримання нових доказів є нормальною частиною розвитку дослідницької програми. Методологічна помилка – не зміна версії, а приховування того, <strong>чому</strong> вона змінилася.</p>
+</div>
+</div>
+</section>
+<section id="мінімальна-методологічна-архітектура-дисертації-v1" class="level1">
+<h1>18. Мінімальна методологічна архітектура дисертації v1</h1>
+<p>На цьому етапі всі компоненти повинні утворювати одну систему.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '16px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'lineColor': '#6366f1',
+  'edgeLabelBackground': '#ffffff'
+}}}%%
+flowchart TD
+    PS("🌍 Проблемна ситуація")
+    P("❓ Наукова проблема v2")
+    G("🕳️ Дослідницька прогалина v1")
+    O("🎯 Об'єкт / предмет v1")
+    A("🧭 Мета v1")
+    RQ("❓ Система RQ v1")
+    H("💡 Гіпотези v1")
+    T("🔬 Дослідницькі задачі v1")
+    ST("🧪 Окремі дослідження")
+    E("🔎 Очікувані докази")
+    C("💬 Карта тверджень v1")
+    CONTR("🌱 Очікувані внески v1")
+
+    PS --&gt; P
+    P --&gt; G
+    P --&gt; O
+    G --&gt; A
+    O --&gt; A
+    A --&gt; RQ
+    RQ --&gt; H
+    RQ --&gt; T
+    H --&gt; T
+    T --&gt; ST --&gt; E --&gt; C --&gt; CONTR
+    C -. "перевірка узгодженості" .-&gt; RQ
+
+    classDef early fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef design fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#312e81
+    classDef evidence fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    classDef result fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+
+    class PS,P,G,O,A early
+    class RQ,H,T,ST design
+    class E,C evidence
+    class CONTR result
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Перемалюйте цю схему під <strong>власну дисертаційну програму</strong>, якщо її логіка складніша або має інші залежності.</p>
+</section>
+<section id="самоперевірка-архітектури" class="level1">
+<h1>19. Самоперевірка архітектури</h1>
+<p>Перед завершенням ЛР2 дайте короткі відповіді.</p>
+<ol type="1">
+<li>Чи сформульована проблема як дефіцит знання, а не як потреба щось створити?</li>
+<li>Чи відрізняю я наукову проблему від дослідницької прогалини?</li>
+<li>Чи предмет справді звужує об’єкт до того, що буде досліджуватися?</li>
+<li>Чи мета спрямована на науковий результат, а не лише на артефакт?</li>
+<li>Чи кожне RQ випливає з проблеми?</li>
+<li>Чи кожна гіпотеза є спростовуваною?</li>
+<li>Чи кожна задача підтримує хоча б одне RQ?</li>
+<li>Чи можна для кожного попереднього твердження назвати необхідні докази?</li>
+<li>Чи не перевищує очікуваний внесок те, що реально можна буде довести?</li>
+<li>Чи можна простежити логіку в обидва боки – від проблеми до внеску і назад?</li>
+</ol>
+<p>Для кожної відповіді «ні» або «частково» внесіть зміни до відповідного артефакту.</p>
+</section>
+<section id="перехід-до-лр3" class="level1">
+<h1>20. Перехід до ЛР3</h1>
+<p>Після ЛР2 ви маєте не остаточну дисертаційну тему, а:</p>
+<p><span class="math display">\[
+\boxed{
+\text{Methodological Architecture}_{v1}
+}
+\]</span></p>
+<p>Наступний крок – <strong>не розширювати архітектуру новими красивими формулюваннями</strong>, а почати її систематичну перевірку науковою літературою.</p>
+<p>У ЛР3 потрібно буде побудувати:</p>
+<ol type="1">
+<li>протокол пошуку;</li>
+<li>критерії включення та виключення джерел;</li>
+<li>матрицю доказів;</li>
+<li>карту сучасного стану досліджень;</li>
+<li>основу для доказового перегляду <code>Research Gap v1</code>, RQ та попередніх тверджень.</li>
+</ol>
+<p>Отже:</p>
+<p><span class="math display">\[
+\text{Architecture}_{v1}
+\rightarrow
+\text{Systematic Evidence}
+\rightarrow
+\text{Architecture}_{v2}.
+\]</span></p>
+</section>
+<section id="підсумкова-концептуальна-схема" class="level1">
+<h1>Підсумкова концептуальна схема</h1>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '16px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'lineColor': '#6366f1',
+  'edgeLabelBackground': '#ffffff'
+}}}%%
+flowchart LR
+    U("❓ Невідоме")
+    P("🧭 Проблема")
+    G("🕳️ Прогалина")
+    RQ("❔ Дослідницькі питання")
+    H("💡 Гіпотези")
+    T("🔬 Задачі / дослідження")
+    E("🔎 Докази")
+    C("💬 Твердження")
+    CONTR("🌱 Внесок")
+
+    U --&gt; P --&gt; G --&gt; RQ
+    RQ --&gt; H --&gt; T
+    RQ --&gt; T
+    T --&gt; E --&gt; C --&gt; CONTR
+
+    CONTR -. "зворотна простежуваність" .-&gt; P
+
+    classDef early fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef design fill:#e0e7ff,stroke:#6366f1,stroke-width:2px,color:#312e81
+    classDef evidence fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    classDef result fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+
+    class U,P,G,RQ early
+    class H,T design
+    class E,C evidence
+    class CONTR result
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="висновки" class="level1">
+<h1>Висновки</h1>
+<ol type="1">
+<li><p><em>ЛР2 перетворює результати ЛР1 на першу цілісну методологічну архітектуру дисертації.</em></p></li>
+<li><p><em>Дослідницька прогалина (<code>Research Gap v1</code>) на цьому етапі залишається робочою конструкцією.</em> Її доказова перевірка починається в ЛР3.</p></li>
+<li><p><em>Дослідницькі питання (<code>RQ System v1</code>) декомпозують наукову проблему на конкретні невідомі</em>, для яких можна визначити спосіб отримання доказів.</p></li>
+<li><p><em>Гіпотези формулюються лише там, де вони справді потрібні</em> і можуть бути спростовані результатами дослідження.</p></li>
+<li><p><em>Задачі дослідження не слід підміняти технічними операціями.</em> Вони повинні бути необхідними кроками до отримання нового знання.</p></li>
+<li><p><em>Карта тверджень (<code>Claim Map v1</code>) не передбачає результат наперед.</em> Вона показує, які твердження потенційно потребуватимуть доказового обґрунтування.</p></li>
+<li><p><em>Матриця логічної узгодженості забезпечує простежуваність</em> від проблеми до внеску і назад.</p></li>
+<li><p>Результат ЛР2 – <code>Methodological Architecture v1</code>, яка в наступних роботах буде перевірятися та уточнюватися на основі систематичної доказової бази.</p></li>
+</ol>
+</section>
+<section id="список-літератури" class="level1">
+<h1>Список літератури</h1>
+<ol type="1">
+<li><p>Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., &amp; FitzGerald, W. T. (2016). <em>The craft of research</em> (4th ed.). University of Chicago Press.</p></li>
+<li><p>Creswell, J. W., &amp; Creswell, J. D. (2022). <em>Research design: Qualitative, quantitative, and mixed methods approaches</em> (6th ed.). SAGE Publications.</p></li>
+<li><p>Ellis, T. J., &amp; Levy, Y. (2008). Framework of problem-based research: A guide for novice researchers on the development of a research-worthy problem. <em>Informing Science: The International Journal of an Emerging Transdiscipline, 11</em>, 17–33. https://doi.org/10.28945/438</p></li>
+<li><p>Hevner, A. R., March, S. T., Park, J., &amp; Ram, S. (2004). Design science in information systems research. <em>MIS Quarterly, 28</em>(1), 75–105.</p></li>
+<li><p>National Academies of Sciences, Engineering, and Medicine. (2019). <em>Reproducibility and replicability in science</em>. The National Academies Press. https://doi.org/10.17226/25303</p></li>
+<li><p>Peffers, K., Tuunanen, T., Rothenberger, M. A., &amp; Chatterjee, S. (2007). A design science research methodology for information systems research. <em>Journal of Management Information Systems, 24</em>(3), 45–77. https://doi.org/10.2753/MIS0742-1222240302</p></li>
+<li><p>Shull, F., Singer, J., &amp; Sjøberg, D. I. K. (Eds.). (2008). <em>Guide to advanced empirical software engineering</em>. Springer. https://doi.org/10.1007/978-1-84800-044-5</p></li>
+<li><p>The Turing Way Community. (2025). <em>The Turing Way: A handbook for reproducible, ethical and collaborative research</em> (Version 1.2.3). Zenodo. https://doi.org/10.5281/zenodo.15213042</p></li>
+<li><p>Wieringa, R. J. (2014). <em>Design science methodology for information systems and software engineering</em>. Springer. https://doi.org/10.1007/978-3-662-43839-8</p></li>
+<li><p>Мокін, Б. І., Мокін, О. Б., &amp; Мокін, В. Б. (2023). <em>Методологія та організація наукових досліджень</em> (3-тє вид., змін. та допов.). ВНТУ.</p></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

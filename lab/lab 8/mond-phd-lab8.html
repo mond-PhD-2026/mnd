@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="uk" xml:lang="uk"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="© Valeriy Sydorenko, 2026">
+<meta name="description" content="Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»">
+
+<title>Лабораторна робота 8. Інтеграція та методологічний захист фінального методологічного каркаса дисертаційного дослідження + карти доказів дисертації + контрольна точка перегляду 2</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="mond-phd-lab8_files/libs/clipboard/clipboard.min.js"></script>
+<script src="mond-phd-lab8_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="mond-phd-lab8_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="mond-phd-lab8_files/libs/quarto-html/popper.min.js"></script>
+<script src="mond-phd-lab8_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="mond-phd-lab8_files/libs/quarto-html/anchor.min.js"></script>
+<link href="mond-phd-lab8_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="mond-phd-lab8_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="mond-phd-lab8_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="mond-phd-lab8_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="mond-phd-lab8_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="mond-phd-lab8_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="mond-phd-lab8_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="mond-phd-lab8_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#що-ви-будете-вміти" id="toc-що-ви-будете-вміти" class="nav-link active" data-scroll-target="#що-ви-будете-вміти">Що ви будете вміти?</a></li>
+  <li><a href="#короткі-теоретичні-відомості" id="toc-короткі-теоретичні-відомості" class="nav-link" data-scroll-target="#короткі-теоретичні-відомості">Короткі теоретичні відомості</a>
+  <ul class="collapse">
+  <li><a href="#фінальний-методологічний-каркас-це-система-звязків" id="toc-фінальний-методологічний-каркас-це-система-звязків" class="nav-link" data-scroll-target="#фінальний-методологічний-каркас-це-система-звязків">1. Фінальний методологічний каркас – це система зв’язків</a></li>
+  <li><a href="#двобічна-простежуваність" id="toc-двобічна-простежуваність" class="nav-link" data-scroll-target="#двобічна-простежуваність">2. Двобічна простежуваність</a></li>
+  <li><a href="#карта-доказів-дисертації" id="toc-карта-доказів-дисертації" class="nav-link" data-scroll-target="#карта-доказів-дисертації">3. Карта доказів дисертації</a></li>
+  <li><a href="#контрольна-точка-перегляду-2" id="toc-контрольна-точка-перегляду-2" class="nav-link" data-scroll-target="#контрольна-точка-перегляду-2">4. Контрольна точка перегляду 2</a></li>
+  </ul></li>
+  <li><a href="#хід-роботи" id="toc-хід-роботи" class="nav-link" data-scroll-target="#хід-роботи">Хід роботи</a>
+  <ul class="collapse">
+  <li><a href="#завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр7" id="toc-завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр7" class="nav-link" data-scroll-target="#завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр7">Завдання 1. Зафіксуйте вхідні артефакти ЛР1–ЛР7</a></li>
+  <li><a href="#завдання-2.-побудуйте-final-methodological-framework-v1" id="toc-завдання-2.-побудуйте-final-methodological-framework-v1" class="nav-link" data-scroll-target="#завдання-2.-побудуйте-final-methodological-framework-v1">Завдання 2. Побудуйте <code>Final Methodological Framework v1</code></a></li>
+  <li><a href="#завдання-3.-проведіть-аудит-task-result-claim" id="toc-завдання-3.-проведіть-аудит-task-result-claim" class="nav-link" data-scroll-target="#завдання-3.-проведіть-аудит-task-result-claim">Завдання 3. Проведіть аудит <code>Task ↔︎ Result ↔︎ Claim</code></a></li>
+  <li><a href="#завдання-4.-побудуйте-dissertation-evidence-map-v1" id="toc-завдання-4.-побудуйте-dissertation-evidence-map-v1" class="nav-link" data-scroll-target="#завдання-4.-побудуйте-dissertation-evidence-map-v1">Завдання 4. Побудуйте <code>Dissertation Evidence Map v1</code></a></li>
+  <li><a href="#завдання-5.-побудуйте-contribution-map-vfinal" id="toc-завдання-5.-побудуйте-contribution-map-vfinal" class="nav-link" data-scroll-target="#завдання-5.-побудуйте-contribution-map-vfinal">Завдання 5. Побудуйте <code>Contribution Map vFinal</code></a></li>
+  <li><a href="#завдання-6.-побудуйте-scope-generalizability-map-v1" id="toc-завдання-6.-побудуйте-scope-generalizability-map-v1" class="nav-link" data-scroll-target="#завдання-6.-побудуйте-scope-generalizability-map-v1">Завдання 6. Побудуйте <code>Scope &amp; Generalizability Map v1</code></a></li>
+  <li><a href="#завдання-7.-побудуйте-publication--claim-map-v1" id="toc-завдання-7.-побудуйте-publication--claim-map-v1" class="nav-link" data-scroll-target="#завдання-7.-побудуйте-publication--claim-map-v1">Завдання 7. Побудуйте <code>Publication--Claim Map v1</code></a></li>
+  <li><a href="#завдання-8.-перевірте-повний-ланцюг-відтворюваності-та-простежуваності" id="toc-завдання-8.-перевірте-повний-ланцюг-відтворюваності-та-простежуваності" class="nav-link" data-scroll-target="#завдання-8.-перевірте-повний-ланцюг-відтворюваності-та-простежуваності">Завдання 8. Перевірте повний ланцюг відтворюваності та простежуваності</a></li>
+  <li><a href="#завдання-9.-виконайте-checkpoint-review-2" id="toc-завдання-9.-виконайте-checkpoint-review-2" class="nav-link" data-scroll-target="#завдання-9.-виконайте-checkpoint-review-2">Завдання 9. Виконайте <code>Checkpoint Review 2</code></a></li>
+  <li><a href="#завдання-10.-проведіть-red-flag-audit" id="toc-завдання-10.-проведіть-red-flag-audit" class="nav-link" data-scroll-target="#завдання-10.-проведіть-red-flag-audit">Завдання 10. Проведіть <code>Red Flag Audit</code></a></li>
+  <li><a href="#завдання-11.-сформуйте-methodological-defense-map-v1" id="toc-завдання-11.-сформуйте-methodological-defense-map-v1" class="nav-link" data-scroll-target="#завдання-11.-сформуйте-methodological-defense-map-v1">Завдання 11. Сформуйте <code>Methodological Defense Map v1</code></a></li>
+  <li><a href="#завдання-12.-проведіть-самоперевірку-через-критичні-запитання" id="toc-завдання-12.-проведіть-самоперевірку-через-критичні-запитання" class="nav-link" data-scroll-target="#завдання-12.-проведіть-самоперевірку-через-критичні-запитання">Завдання 12. Проведіть самоперевірку через критичні запитання</a></li>
+  <li><a href="#завдання-13.-сформуйте-final-research-program-snapshot-v1" id="toc-завдання-13.-сформуйте-final-research-program-snapshot-v1" class="nav-link" data-scroll-target="#завдання-13.-сформуйте-final-research-program-snapshot-v1">Завдання 13. Сформуйте <code>Final Research Program Snapshot v1</code></a></li>
+  <li><a href="#завдання-14.-побудуйте-фінальну-карту-дисертаційного-дослідження" id="toc-завдання-14.-побудуйте-фінальну-карту-дисертаційного-дослідження" class="nav-link" data-scroll-target="#завдання-14.-побудуйте-фінальну-карту-дисертаційного-дослідження">Завдання 14. Побудуйте фінальну карту дисертаційного дослідження</a></li>
+  </ul></li>
+  <li><a href="#що-потрібно-подати-на-захист" id="toc-що-потрібно-подати-на-захист" class="nav-link" data-scroll-target="#що-потрібно-подати-на-захист">Що потрібно подати на захист</a></li>
+  <li><a href="#критерії-оцінювання" id="toc-критерії-оцінювання" class="nav-link" data-scroll-target="#критерії-оцінювання">Критерії оцінювання</a></li>
+  <li><a href="#що-потрібно-показати-на-методологічному-захисті" id="toc-що-потрібно-показати-на-методологічному-захисті" class="nav-link" data-scroll-target="#що-потрібно-показати-на-методологічному-захисті">Що потрібно показати на методологічному захисті?</a></li>
+  <li><a href="#контрольні-запитання" id="toc-контрольні-запитання" class="nav-link" data-scroll-target="#контрольні-запитання">Контрольні запитання</a></li>
+  <li><a href="#підсумок" id="toc-підсумок" class="nav-link" data-scroll-target="#підсумок">Підсумок</a></li>
+  <li><a href="#рекомендовані-джерела" id="toc-рекомендовані-джерела" class="nav-link" data-scroll-target="#рекомендовані-джерела">Рекомендовані джерела</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Лабораторна робота 8. Інтеграція та методологічний захист фінального методологічного каркаса дисертаційного дослідження + карти доказів дисертації + контрольна точка перегляду 2</h1>
+</div>
+
+<div>
+  <div class="description">
+    <strong>Методологія наукових досліджень | PhD F3 «Комп’ютерні науки»</strong>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>© <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/">Valeriy Sydorenko</a>, 2026 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24 вересня 2026 р.</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Мета</strong>: інтегрувати результати ЛР1–ЛР7 у фінальний методологічний каркас власного дисертаційного дослідження, побудувати карту доказів дисертації та карту відповідності публікацій науковим твердженням, виконати другу контрольну ревізію дослідницької програми і підготувати її до аргументованого методологічного захисту.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ЛР8 – <em>фінальна інтеграційна робота курсу</em>. Вона не передбачає механічного копіювання результатів ЛР1–ЛР7.</p>
+<p>Ваше завдання – показати, що окремі артефакти утворюють <em>одну логічно узгоджену дослідницьку програму</em>:</p>
+<p><span class="math display">\[
+\text{Problem}
+\rightarrow
+\text{Gap}
+\rightarrow
+\text{RQ/H}
+\rightarrow
+\text{Design}
+\rightarrow
+\text{Evidence}
+\rightarrow
+\text{Validation}
+\rightarrow
+\text{Claim}
+\rightarrow
+\text{Contribution}.
+\]</span></p>
+<p>Оскільки дисципліна вивчається у першому семестрі першого року PhD, від вас не очікується завершена дисертація або вже отримані всі результати. Фінальний каркас має бути <em>доказово обґрунтованим планом дослідження</em>, достатньо сильним для подальшої систематичної роботи і водночас відкритим до перегляду в міру появи нових доказів.</p>
+<p>Якщо певний елемент ще не може бути заповнений фактичним результатом, чітко позначте його як <code>PLANNED</code> і вкажіть, <em>який саме доказ має бути отриманий</em>.</p>
+</div>
+</div>
+<section id="що-ви-будете-вміти" class="level2">
+<h2 class="anchored" data-anchor-id="що-ви-будете-вміти">Що ви будете вміти?</h2>
+<p>Після виконання лабораторної роботи ви зможете:</p>
+<ul>
+<li>інтегрувати проблему, прогалину, RQ/гіпотези, задачі, дизайн, методи, докази, валідацію, Claims та Contributions в один методологічний каркас;</li>
+<li>будувати <em>Dissertation Evidence Map</em> (карту доказів дисертації);</li>
+<li>перевіряти двобічну простежуваність <code>Task ↔︎ Result ↔︎ Claim ↔︎ Contribution</code>;</li>
+<li>визначати межі застосовності та узагальнюваності наукових тверджень;</li>
+<li>будувати <em>Publication–Claim Map</em> (карту відповідності публікацій науковим твердженням);</li>
+<li>виявляти evidence gaps, orphan results і надмірно сильні Claims;</li>
+<li>виконувати фінальний інтеграційний аудит за процедурою <code>KEEP / MODIFY / REMOVE / ADD</code>;</li>
+<li>аргументовано захищати методологічну архітектуру власної дисертації.</li>
+</ul>
+</section>
+<section id="короткі-теоретичні-відомості" class="level2">
+<h2 class="anchored" data-anchor-id="короткі-теоретичні-відомості">Короткі теоретичні відомості</h2>
+<section id="фінальний-методологічний-каркас-це-система-звязків" class="level3">
+<h3 class="anchored" data-anchor-id="фінальний-методологічний-каркас-це-система-звязків">1. Фінальний методологічний каркас – це система зв’язків</h3>
+<p>Наприкінці курсу важливо не просто мати набір правильних таблиць. Потрібно показати <em>зв’язки між ними</em>.</p>
+<p>Мінімальна логіка:</p>
+<p><span class="math display">\[
+Problem
+\rightarrow Gap
+\rightarrow RQ/H
+\rightarrow Task
+\rightarrow Design/Method
+\rightarrow Evidence
+\rightarrow Validation
+\rightarrow Claim
+\rightarrow Contribution.
+\]</span></p>
+<p>До неї додаються:</p>
+<p><span class="math display">\[
+Limitations + Reproducibility + Traceability + Integrity + Publications.
+\]</span></p>
+<p>Якщо один із ключових переходів неможливо аргументувати, це сигнал до перегляду відповідної частини дослідницької програми.</p>
+</section>
+<section id="двобічна-простежуваність" class="level3">
+<h3 class="anchored" data-anchor-id="двобічна-простежуваність">2. Двобічна простежуваність</h3>
+<p>Каркас має дозволяти пройти логіку у двох напрямах.</p>
+<p><em>Вперед</em>:</p>
+<p><span class="math display">\[
+Problem \rightarrow \cdots \rightarrow Contribution.
+\]</span></p>
+<p><em>Назад</em>:</p>
+<p><span class="math display">\[
+Contribution \rightarrow Claim \rightarrow Evidence \rightarrow Research \rightarrow RQ \rightarrow Gap \rightarrow Problem.
+\]</span></p>
+<p>Другий маршрут особливо важливий для захисту: кожне твердження про внесок повинно мати простежувану доказову основу.</p>
+</section>
+<section id="карта-доказів-дисертації" class="level3">
+<h3 class="anchored" data-anchor-id="карта-доказів-дисертації">3. Карта доказів дисертації</h3>
+<p><em>Dissertation Evidence Map</em> показує не лише, які докази плануються або вже отримані, а й:</p>
+<ul>
+<li>який Claim підтримує кожний Evidence;</li>
+<li>яким способом Evidence буде валідовано;</li>
+<li>які обмеження залишаються;</li>
+<li>де зберігається або буде зберігатися дослідницький артефакт;</li>
+<li>який статус має ланка: <code>PLANNED</code>, <code>PARTIAL</code>, <code>SUPPORTED</code>, <code>GAP</code>.</li>
+</ul>
+<p>У фінальній роботі ця карта стає центральним інструментом перевірки цілісності.</p>
+</section>
+<section id="контрольна-точка-перегляду-2" class="level3">
+<h3 class="anchored" data-anchor-id="контрольна-точка-перегляду-2">4. Контрольна точка перегляду 2</h3>
+<p>Перша контрольна точка в ЛР4 перевіряла, як доказова база змінила початкову концепцію.</p>
+<p>Тепер запитання інше:</p>
+<blockquote class="blockquote">
+<p><em>Чи утворюють усі спроєктовані компоненти одну логічно та доказово узгоджену програму дисертаційного дослідження?</em></p>
+</blockquote>
+<p>Використовуйте чотири рішення:</p>
+<ul>
+<li><code>KEEP</code> – залишити;</li>
+<li><code>MODIFY</code> – уточнити;</li>
+<li><code>REMOVE</code> – вилучити;</li>
+<li><code>ADD</code> – додати відсутній компонент.</li>
+</ul>
+<p>Обґрунтоване <code>MODIFY</code>, <code>REMOVE</code> або <code>ADD</code> є ознакою методологічної рефлексії, а не помилкою.</p>
+</section>
+</section>
+<section id="хід-роботи" class="level2">
+<h2 class="anchored" data-anchor-id="хід-роботи">Хід роботи</h2>
+<section id="завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр7" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-1.-зафіксуйте-вхідні-артефакти-лр1лр7">Завдання 1. Зафіксуйте вхідні артефакти ЛР1–ЛР7</h3>
+<p>Не переписуйте попередні роботи. Зафіксуйте <em>актуальну версію</em>, яка входить у фінальну інтеграцію.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Артефакт</th>
+<th>Поточна версія</th>
+<th>Джерело</th>
+<th>Статус</th>
+<th>Потребує перегляду?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Research Problem</td>
+<td></td>
+<td>ЛР1</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Object / Subject / Aim</td>
+<td></td>
+<td>ЛР1–ЛР2</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RQ System / Hypotheses</td>
+<td></td>
+<td>ЛР2</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Research Tasks</td>
+<td></td>
+<td>ЛР2</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Evidence Matrix / State-of-the-Art Map</td>
+<td></td>
+<td>ЛР3</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Research Gap</td>
+<td></td>
+<td>ЛР3–ЛР4</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Contribution / Novelty Claims</td>
+<td></td>
+<td>ЛР4</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Research Design / Methods</td>
+<td></td>
+<td>ЛР5</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Claim–Evidence–Validation Matrix</td>
+<td></td>
+<td>ЛР6</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Threats / Robustness Plan</td>
+<td></td>
+<td>ЛР6</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Reproducibility / Traceability Plan</td>
+<td></td>
+<td>ЛР7</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>AI Usage Statement</td>
+<td></td>
+<td>ЛР7</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>У стовпці <code>Статус</code> використовуйте, наприклад, <code>STABLE</code>, <code>NEEDS REVIEW</code>, <code>PLANNED</code>.</p>
+</section>
+<section id="завдання-2.-побудуйте-final-methodological-framework-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-2.-побудуйте-final-methodological-framework-v1">Завдання 2. Побудуйте <code>Final Methodological Framework v1</code></h3>
+<p>Сформуйте інтегровану таблицю:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Problem / Gap</th>
+<th>RQ / H</th>
+<th>Task</th>
+<th>Design / Method</th>
+<th>Data</th>
+<th>Evidence</th>
+<th>Validation</th>
+<th>Claim</th>
+<th>Contribution</th>
+<th>Limitation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>F1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>F2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Правила:</p>
+<ol type="1">
+<li>кожний рядок має представляти <em>один простежуваний методологічний ланцюг</em>;</li>
+<li>якщо результат ще не отриманий, Evidence позначається <code>PLANNED</code>;</li>
+<li>не формулюйте Contribution сильніше, ніж дозволяє запланований Evidence;</li>
+<li>якщо один Claim потребує кількох незалежних доказів, покажіть це окремими рядками або зв’язками.</li>
+</ol>
+<p>Після таблиці побудуйте власну узагальнювальну схему.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    P("🎯 Problem") --&gt; G("🧩 Gap")
+    G --&gt; Q("❓ RQ / H")
+    Q --&gt; D("🧭 Design")
+    D --&gt; E("📊 Evidence")
+    E --&gt; V("🛡️ Validation")
+    V --&gt; C("💡 Claim")
+    C --&gt; N("🏆 Contribution")
+</pre>
+</div>
+<p></p><figcaption> Шаблон фінального методологічного каркаса</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<p>Схема має відображати <em>вашу реальну архітектуру</em>, а не залишатися копією шаблону.</p>
+</section>
+<section id="завдання-3.-проведіть-аудит-task-result-claim" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-3.-проведіть-аудит-task-result-claim">Завдання 3. Проведіть аудит <code>Task ↔︎ Result ↔︎ Claim</code></h3>
+<p>Для кожної задачі дисертації перевірте:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task ID</th>
+<th>Research Task</th>
+<th>Expected / Actual Result</th>
+<th>Claim ID</th>
+<th>Contribution ID</th>
+<th>Status</th>
+<th>Проблема</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Виконайте також зворотну перевірку:</p>
+<ul>
+<li>чи є задача без очікуваного результату;</li>
+<li>чи є результат, який не відповідає жодній задачі;</li>
+<li>чи є Claim без Evidence;</li>
+<li>чи є Evidence, яке не підтримує жодного Claim;</li>
+<li>чи є Contribution без достатньої системи Claims.</li>
+</ul>
+<p>Такі випадки позначайте як <code>GAP</code>.</p>
+</section>
+<section id="завдання-4.-побудуйте-dissertation-evidence-map-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-4.-побудуйте-dissertation-evidence-map-v1">Завдання 4. Побудуйте <code>Dissertation Evidence Map v1</code></h3>
+<p>Для кожного основного Claim сформуйте карту:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim ID</th>
+<th>Scientific Claim</th>
+<th>Evidence ID</th>
+<th>Evidence type</th>
+<th>Validation</th>
+<th>Threat / Limitation</th>
+<th>Provenance</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CL-01</td>
+<td></td>
+<td>E-01</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CL-01</td>
+<td></td>
+<td>E-02</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CL-02</td>
+<td></td>
+<td>E-03</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Рекомендовані статуси:</p>
+<ul>
+<li><code>PLANNED</code>;</li>
+<li><code>PARTIAL</code>;</li>
+<li><code>SUPPORTED</code>;</li>
+<li><code>GAP</code>.</li>
+</ul>
+<p>Якщо Evidence ще не існує, у <code>Provenance</code> вкажіть, <em>який експеримент, аналіз або теоретичний результат має його створити</em>.</p>
+<p>Побудуйте Mermaid-карту для ключових Claims.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    E1("📊 Evidence E1") --&gt; C1("💡 Claim C1")
+    E2("📊 Evidence E2") --&gt; C1
+    E3("📊 Evidence E3") --&gt; C2("💡 Claim C2")
+    C1 --&gt; N1("🏆 Contribution N1")
+    C2 --&gt; N1
+</pre>
+</div>
+<p></p><figcaption> Шаблон карти доказів дисертації</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<p>Зверніть увагу на Claims, для яких Evidence недостатній або однорідний.</p>
+</section>
+<section id="завдання-5.-побудуйте-contribution-map-vfinal" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-5.-побудуйте-contribution-map-vfinal">Завдання 5. Побудуйте <code>Contribution Map vFinal</code></h3>
+<p>Перегляньте <code>Contribution Map</code>, створену в ЛР4, з урахуванням дизайну, валідації та простежуваності з ЛР5–ЛР7.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Contribution ID</th>
+<th>Research Gap</th>
+<th>Supporting Claims</th>
+<th>Key Evidence</th>
+<th>New Knowledge</th>
+<th>Scope</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>N2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Для кожного внеску дайте коротку відповідь:</p>
+<blockquote class="blockquote">
+<p><em>Що ми знатимемо після виконання дослідження такого, чого не могли достатньо обґрунтовано стверджувати до нього?</em></p>
+</blockquote>
+<p>Якщо відповідь зводиться лише до «буде створено програму/модель/систему», перегляньте формулювання внеску.</p>
+</section>
+<section id="завдання-6.-побудуйте-scope-generalizability-map-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-6.-побудуйте-scope-generalizability-map-v1">Завдання 6. Побудуйте <code>Scope &amp; Generalizability Map v1</code></h3>
+<p>Для кожного ключового Claim визначте межі застосовності.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim ID</th>
+<th>Population / Data</th>
+<th>Domain</th>
+<th>Time / Context</th>
+<th>Assumptions</th>
+<th>Що можна узагальнювати?</th>
+<th>Що не можна узагальнювати?</th>
+<th>Потрібна зовнішня валідація</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CL-01</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CL-02</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Не використовуйте універсальні формулювання, якщо дизайн перевіряє лише вузьку область умов.</p>
+</section>
+<section id="завдання-7.-побудуйте-publication--claim-map-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-7.-побудуйте-publication--claim-map-v1">Завдання 7. Побудуйте <code>Publication--Claim Map v1</code></h3>
+<p>Якщо публікацій ще немає, використовуйте заплановані публікації <code>P1</code>, <code>P2</code>, …</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Publication ID</th>
+<th>Статус</th>
+<th>RQ / Task</th>
+<th>Result / Evidence</th>
+<th>Claim</th>
+<th>Contribution</th>
+<th>Роль у дисертації</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P1</td>
+<td>published / planned</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>P2</td>
+<td>planned</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Після таблиці перевірте:</p>
+<ul>
+<li>чи покривають публікації центральні Claims;</li>
+<li>чи немає кількох публікацій, які дублюють один і той самий мінімальний результат;</li>
+<li>чи є ключові Claims, для яких не передбачено апробації;</li>
+<li>чи не підмінює Publication сам Evidence.</li>
+</ul>
+<p>Публікаційна карта є <em>інструментом простежуваності</em>, а не планом «набрати потрібну кількість статей».</p>
+</section>
+<section id="завдання-8.-перевірте-повний-ланцюг-відтворюваності-та-простежуваності" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-8.-перевірте-повний-ланцюг-відтворюваності-та-простежуваності">Завдання 8. Перевірте повний ланцюг відтворюваності та простежуваності</h3>
+<p>Виберіть щонайменше <em>два ключові Claims</em> і простежте їх до первинних дослідницьких артефактів.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Evidence</th>
+<th>Result</th>
+<th>Experiment / Analysis</th>
+<th>Data</th>
+<th>Code</th>
+<th>Config</th>
+<th>Environment</th>
+<th>Research Log</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CL-01</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CL-02</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Для запланованих елементів зафіксуйте майбутні ідентифікатори або правила їх створення.</p>
+<p>Очікувана логіка:</p>
+<p><span class="math display">\[
+Contribution
+\leftarrow Claim
+\leftarrow Evidence
+\leftarrow Result
+\leftarrow Experiment
+\leftarrow (Data, Code, Config, Environment).
+\]</span></p>
+</section>
+<section id="завдання-9.-виконайте-checkpoint-review-2" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-9.-виконайте-checkpoint-review-2">Завдання 9. Виконайте <code>Checkpoint Review 2</code></h3>
+<p>Порівняйте <em>початкову архітектуру</em> ЛР1–ЛР2, версію після <code>Checkpoint Review 1</code> і фінальну версію.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Компонент</th>
+<th>Початкова версія</th>
+<th>Після Checkpoint 1</th>
+<th>Рішення 2</th>
+<th>Фінальна версія</th>
+<th>Evidence / Причина зміни</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Research Problem</td>
+<td></td>
+<td></td>
+<td>KEEP/MODIFY/REMOVE/ADD</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Object</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Subject</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Aim</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Research Tasks</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RQ / Hypotheses</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Research Gap</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Contribution Claims</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Novelty Claims</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Research Design</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Validation Plan</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Scope / Limitations</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Після таблиці сформулюйте <em>5–10 речень методологічної рефлексії</em>: що саме змінилося протягом курсу і які зміни були спричинені доказами, а не стилістичним редагуванням.</p>
+</section>
+<section id="завдання-10.-проведіть-red-flag-audit" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-10.-проведіть-red-flag-audit">Завдання 10. Проведіть <code>Red Flag Audit</code></h3>
+<p>Позначте <code>YES / NO / UNCERTAIN</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Перевірка</th>
+<th>Статус</th>
+<th>Дія</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Тема ширша за фактичний предмет</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Мета не покривається сукупністю задач</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Є задача без результату</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Є результат-сирота</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Є Claim без Evidence</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Evidence не має Validation</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Contribution сформульовано як артефакт</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Novelty Claim сильніше за Evidence</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Не визначено межі застосовності</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Немає плану зовнішньої валідації там, де вона потрібна</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Ключовий результат не простежується до даних/коду/процедури</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Використання ШІ може впливати на Evidence без достатньої верифікації</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Для кожного <code>YES</code> або <code>UNCERTAIN</code> сформулюйте конкретну коригувальну дію.</p>
+</section>
+<section id="завдання-11.-сформуйте-methodological-defense-map-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-11.-сформуйте-methodological-defense-map-v1">Завдання 11. Сформуйте <code>Methodological Defense Map v1</code></h3>
+<p>Підготуйте <em>коротку карту захисту</em>, а не повний текст доповіді.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Блок</th>
+<th>Що потрібно довести</th>
+<th>Артефакт / Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Problem</td>
+<td>проблема є науковою</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2. Gap</td>
+<td>прогалина доказово обґрунтована</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3. RQ/H</td>
+<td>логічно випливають із Gap</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4. Design</td>
+<td>відповідає типу Claims</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5. Evidence</td>
+<td>достатнє для запланованих Claims</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>6. Validation</td>
+<td>контролює ключові альтернативні пояснення</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>7. Contribution</td>
+<td>є новим знанням, а не лише артефактом</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>8. Scope</td>
+<td>межі Claims визначено</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>9. Reproducibility</td>
+<td>результат можна простежити та перевірити</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>10. Integrity / AI</td>
+<td>ризики та використання ШІ документуються</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Для кожного блоку підготуйте відповідь тривалістю приблизно <em>30–60 секунд</em>.</p>
+</section>
+<section id="завдання-12.-проведіть-самоперевірку-через-критичні-запитання" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-12.-проведіть-самоперевірку-через-критичні-запитання">Завдання 12. Проведіть самоперевірку через критичні запитання</h3>
+<p>Письмово дайте короткі відповіді щонайменше на 8 запитань:</p>
+<ol type="1">
+<li>У чому ваша наукова проблема, а не лише інженерна задача?</li>
+<li>Якими джерелами доведено Research Gap?</li>
+<li>Що могло б спростувати ключову гіпотезу?</li>
+<li>Чому обраний дизайн здатний перевірити Claim?</li>
+<li>Чому обрана метрика операціоналізує потрібний конструкт?</li>
+<li>Яке альтернативне пояснення результату є найнебезпечнішим?</li>
+<li>Який Claim сьогодні є найменш доказово забезпеченим?</li>
+<li>Який Contribution ризикує залишитися лише технічною новизною?</li>
+<li>Де проходить межа узагальнюваності ключового результату?</li>
+<li>Який негативний результат змусить вас змінити дослідницьку програму?</li>
+<li>Як незалежний дослідник зможе простежити ключовий результат?</li>
+<li>Який елемент вашої архітектури найбільш імовірно зміниться після першого року PhD?</li>
+</ol>
+<p>Відповіді «це буде видно після експериментів» допустимі лише разом із поясненням, <em>який експеримент і яке рішення вони визначатимуть</em>.</p>
+</section>
+<section id="завдання-13.-сформуйте-final-research-program-snapshot-v1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-13.-сформуйте-final-research-program-snapshot-v1">Завдання 13. Сформуйте <code>Final Research Program Snapshot v1</code></h3>
+<p>На одній сторінці або в одній компактній таблиці подайте фінальний «знімок» дослідницької програми:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Елемент</th>
+<th>Фінальна робоча версія</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Research Problem</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Object</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Subject</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Aim</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Research Gap</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Main RQ</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Main Hypothesis / Proposition</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Research Tasks</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Core Design</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Core Evidence</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Validation Strategy</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Main Claims</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Expected Contributions</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Key Limitations</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Reproducibility Strategy</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Publication Strategy</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Найближчий дослідницький крок</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Цей snapshot має бути достатньо компактним, щоб використовувати його як <em>робочу карту дисертації</em> після завершення дисципліни.</p>
+</section>
+<section id="завдання-14.-побудуйте-фінальну-карту-дисертаційного-дослідження" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-14.-побудуйте-фінальну-карту-дисертаційного-дослідження">Завдання 14. Побудуйте фінальну карту дисертаційного дослідження</h3>
+<p>Створіть одну Mermaid-схему, яка інтегрує ключові компоненти саме вашої дисертації.</p>
+<p>Мінімальний каркас:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': {
+  'fontSize': '17px',
+  'fontFamily': 'Trebuchet MS, Verdana, Arial, sans-serif',
+  'primaryColor': '#E8F3FF',
+  'primaryBorderColor': '#3478A8',
+  'secondaryColor': '#FFF0C9',
+  'tertiaryColor': '#E7F6EC',
+  'lineColor': '#536878'
+}}}%%
+flowchart LR
+    P("🎯 Problem") --&gt; G("🧩 Gap")
+    G --&gt; Q("❓ RQ / H")
+    Q --&gt; D("🧭 Design")
+    D --&gt; E("📊 Evidence")
+    E --&gt; V("🛡️ Validation")
+    V --&gt; C("💡 Claims")
+    C --&gt; N("🏆 Contributions")
+    C --&gt; L("⚠️ Scope / Limitations")
+    N --&gt; PUB("📄 Publications")
+    E --&gt; R("🔁 Reproducibility&lt;br/&gt;Traceability")
+</pre>
+</div>
+<p></p><figcaption> Фінальна карта дисертаційного дослідження</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<p>Замініть шаблон конкретними вузлами <code>G1</code>, <code>RQ1</code>, <code>CL1</code>, <code>N1</code>, <code>E1</code> тощо. Не намагайтеся показати абсолютно все: схема повинна демонструвати <em>структуру аргументації</em>, а не бути нечитабельним каталогом.</p>
+</section>
+</section>
+<section id="що-потрібно-подати-на-захист" class="level2">
+<h2 class="anchored" data-anchor-id="що-потрібно-подати-на-захист">Що потрібно подати на захист</h2>
+<p>Підсумковий пакет ЛР8 має містити:</p>
+<ol type="1">
+<li><code>Final Methodological Framework v1</code>;</li>
+<li>аудит <code>Task ↔︎ Result ↔︎ Claim</code>;</li>
+<li><code>Dissertation Evidence Map v1</code>;</li>
+<li><code>Contribution Map vFinal</code>;</li>
+<li><code>Scope &amp; Generalizability Map v1</code>;</li>
+<li><code>Publication--Claim Map v1</code>;</li>
+<li>два повні ланцюги відтворюваності та простежуваності;</li>
+<li><code>Checkpoint Review 2</code>;</li>
+<li><code>Red Flag Audit</code>;</li>
+<li><code>Methodological Defense Map v1</code>;</li>
+<li>відповіді на критичні запитання;</li>
+<li><code>Final Research Program Snapshot v1</code>;</li>
+<li>фінальну Mermaid-карту дисертаційного дослідження.</li>
+</ol>
+<p>Артефакти можуть бути включені безпосередньо до зошита або подані як окремі файли з чіткими посиланнями та версіями.</p>
+</section>
+<section id="критерії-оцінювання" class="level2">
+<h2 class="anchored" data-anchor-id="критерії-оцінювання">Критерії оцінювання</h2>
+<p>Максимальна оцінка за ЛР8 – <strong>21 бал</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Критерій</th>
+<th style="text-align: right;">Максимум</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Повнота та логічна узгодженість <code>Final Methodological Framework</code></td>
+<td style="text-align: right;">4.0</td>
+</tr>
+<tr class="even">
+<td><code>Dissertation Evidence Map</code> та зв’язок Evidence–Validation–Claim</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="odd">
+<td><code>Contribution Map</code>, науковий зміст внесків і межі Claims</td>
+<td style="text-align: right;">2.5</td>
+</tr>
+<tr class="even">
+<td><code>Publication--Claim Map</code> і простежуваність результатів</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="odd">
+<td><code>Checkpoint Review 2</code> та обґрунтованість ревізій</td>
+<td style="text-align: right;">2.0</td>
+</tr>
+<tr class="even">
+<td><code>Red Flag Audit</code> і виявлення методологічних ризиків</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="odd">
+<td><code>Final Research Program Snapshot</code> і фінальна карта</td>
+<td style="text-align: right;">1.5</td>
+</tr>
+<tr class="even">
+<td>Методологічний захист: аргументація, відповіді на критичні запитання, володіння власним каркасом</td>
+<td style="text-align: right;">5.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Разом</strong></td>
+<td style="text-align: right;"><strong>21.0</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Висока оцінка передбачає не «ідеальність» початкової теми, а здатність <em>побачити слабкі місця, доказово їх пояснити та запропонувати методологічно коректне рішення</em>.</p>
+</section>
+<section id="що-потрібно-показати-на-методологічному-захисті" class="level2">
+<h2 class="anchored" data-anchor-id="що-потрібно-показати-на-методологічному-захисті">Що потрібно показати на методологічному захисті?</h2>
+<p>Аспірант повинен уміти без читання великого тексту:</p>
+<ul>
+<li>за 1–2 хвилини пояснити Problem → Gap → RQ/H;</li>
+<li>показати, чому обраний Design відповідає типу ключових Claims;</li>
+<li>простежити щонайменше один Claim до Evidence, Validation та дослідницьких артефактів;</li>
+<li>пояснити, у чому полягає очікуване <em>нове знання</em>;</li>
+<li>назвати межі застосовності ключового Claim;</li>
+<li>показати, як публікації пов’язані з Claims;</li>
+<li>пояснити найважливіше рішення <code>MODIFY / REMOVE / ADD</code> у Checkpoint 2;</li>
+<li>назвати найбільший методологічний ризик, що залишається;</li>
+<li>пояснити, який наступний Evidence найбільше змінить рівень упевненості в дослідницькій програмі.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Важливо
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Методологічний захист – це не конкурс презентацій і не перевірка того, наскільки «переконливо» аспірант може рекламувати тему.</p>
+<p>Якщо під час захисту виявлено слабке місце, коректна відповідь може мати форму:</p>
+<blockquote class="blockquote">
+<p>«Цей Claim поки має статус <code>PLANNED</code>; наявні Evidence недостатні для сильнішого формулювання. Для його перевірки передбачено …».</p>
+</blockquote>
+<p>Така відповідь методологічно сильніша, ніж спроба захистити твердження, для якого немає достатньої доказової основи.</p>
+</div>
+</div>
+</section>
+<section id="контрольні-запитання" class="level2">
+<h2 class="anchored" data-anchor-id="контрольні-запитання">Контрольні запитання</h2>
+<ol type="1">
+<li>Що означає інтегрувати результати в дисертацію?</li>
+<li>Чому набір коректних окремих досліджень ще не гарантує цілісності дисертації?</li>
+<li>Чим Result відрізняється від Claim?</li>
+<li>Що таке двобічна простежуваність?</li>
+<li>Для чого потрібна Dissertation Evidence Map?</li>
+<li>Що таке evidence gap?</li>
+<li>Що таке orphan result?</li>
+<li>Як виявити Claim, сильніший за Evidence?</li>
+<li>Чому Contribution не можна ототожнювати з програмним артефактом?</li>
+<li>Як перевірити узгодженість задач і результатів?</li>
+<li>Що визначає Scope of Claim?</li>
+<li>Чим generalizability відрізняється від універсальності?</li>
+<li>Яку роль відіграє Publication–Claim Map?</li>
+<li>Чому публікація не є заміною Evidence?</li>
+<li>Що перевіряє Checkpoint Review 2?</li>
+<li>Чим Checkpoint Review 2 відрізняється від Checkpoint Review 1?</li>
+<li>Для чого потрібен Red Flag Audit?</li>
+<li>Що є предметом методологічного захисту?</li>
+<li>Чому визнання невизначеності може бути ознакою сильного захисту?</li>
+<li>Який статус має фінальний каркас наприкінці першого семестру першого року PhD?</li>
+</ol>
+</section>
+<section id="підсумок" class="level2">
+<h2 class="anchored" data-anchor-id="підсумок">Підсумок</h2>
+<p>ЛР8 завершує не дисертацію, а <em>першу системну методологічну ітерацію</em> роботи над нею.</p>
+<p>Результатом курсу має бути не набір незалежних документів, а простежувана система:</p>
+<p><span class="math display">\[
+\text{Problem}
+\rightarrow
+\text{Gap}
+\rightarrow
+\text{RQ/H}
+\rightarrow
+\text{Design}
+\rightarrow
+\text{Evidence}
+\rightarrow
+\text{Validation}
+\rightarrow
+\text{Claim}
+\rightarrow
+\text{Contribution}.
+\]</span></p>
+<p>Фінальний каркас стає робочою картою подальшого PhD-дослідження. Він має змінюватися, коли нові дані, результати або література цього вимагають.</p>
+<p>Тому головний результат ЛР8 – здатність аспіранта не лише <em>показати власну дослідницьку програму</em>, а й аргументовано пояснити, чому кожний її ключовий компонент потрібний, якими доказами він підтримується і за яких умов має бути переглянутий.</p>
+</section>
+<section id="рекомендовані-джерела" class="level2">
+<h2 class="anchored" data-anchor-id="рекомендовані-джерела">Рекомендовані джерела</h2>
+<ol type="1">
+<li><p>Booth, W. C., Colomb, G. G., Williams, J. M., Bizup, J., &amp; FitzGerald, W. T. <em>The Craft of Research</em>. 4th ed.&nbsp;Chicago: University of Chicago Press, 2016.</p></li>
+<li><p>National Academies of Sciences, Engineering, and Medicine. <em>Reproducibility and Replicability in Science</em>. Washington, DC: The National Academies Press, 2019. DOI: 10.17226/25303.</p></li>
+<li><p>Wohlin, C., Runeson, P., Höst, M., Ohlsson, M. C., Regnell, B., &amp; Wesslén, A. <em>Experimentation in Software Engineering</em>. Berlin, Heidelberg: Springer, 2012.</p></li>
+<li><p>Kitchenham, B., &amp; Charters, S. <em>Guidelines for Performing Systematic Literature Reviews in Software Engineering</em>. EBSE Technical Report EBSE-2007-01, 2007.</p></li>
+<li><p>Shadish, W. R., Cook, T. D., &amp; Campbell, D. T. <em>Experimental and Quasi-Experimental Designs for Generalized Causal Inference</em>. Boston: Houghton Mifflin, 2002.</p></li>
+<li><p>Nosek, B. A. et al.&nbsp;Promoting an open research culture. <em>Science</em>. 2015. Vol. 348, No.&nbsp;6242. P. 1422–1425. DOI: 10.1126/science.aab2374.</p></li>
+<li><p>Munafò, M. R. et al.&nbsp;A manifesto for reproducible science. <em>Nature Human Behaviour</em>. 2017. Vol. 1. Article 0021. DOI: 10.1038/s41562-016-0021.</p></li>
+<li><p>Pineau, J. et al.&nbsp;Improving Reproducibility in Machine Learning Research: A Report from the NeurIPS 2019 Reproducibility Program. <em>Journal of Machine Learning Research</em>. 2021. Vol. 22, No.&nbsp;164. P. 1–20.</p></li>
+<li><p>Wilkinson, M. D. et al.&nbsp;The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>. 2016. Vol. 3. Article 160018. DOI: 10.1038/sdata.2016.18.</p></li>
+<li><p>ACM. <em>Artifact Review and Badging</em>. Association for Computing Machinery.</p></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
